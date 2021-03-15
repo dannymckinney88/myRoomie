@@ -1,4 +1,22 @@
+
 import Routes from "./config/routes";
+
+import logo from './logo.svg';
+import './App.css';
+import { firebase, db } from './firebase'
+
+db.collection("test from module").add({
+  first: "Ada",
+  last: "Lovelace",
+  born: 1815
+})
+.then((docRef) => {
+  console.log("Document written with ID: ", docRef.id);
+})
+.catch((error) => {
+  console.error("Error adding document: ", error);
+});
+
 
 function App() {
   // const [currentUser, setCurrentUser] = useState(localStorage.getItem('id'))
