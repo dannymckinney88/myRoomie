@@ -1,14 +1,19 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter as Router } from "react-router-dom";
-import "./index.css";
-import App from "./App";
+import Routes from "./config/routes";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Router>
-      <App />
-    </Router>
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+function App() {
+  // const [currentUser, setCurrentUser] = useState(localStorage.getItem('id'))
+  // const storeUser = (user) => {
+  //   setCurrentUser({ user })
+  //   localStorage.setItem('id', user.id)
+  //   localStorage.setItem('firstName', user.firstName)
+  //   localStorage.setItem('lastName', user.lastName)
+  // }
+
+  return (
+    <div className="App">
+      <Routes /*currentUser={currentUser} storeUser={storeUser}*/ />
+    </div>
+  );
+}
+
+export default App;
