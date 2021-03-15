@@ -1,3 +1,6 @@
+
+import Routes from "./config/routes";
+
 import logo from './logo.svg';
 import './App.css';
 import { firebase, db } from './firebase'
@@ -14,23 +17,19 @@ db.collection("test from module").add({
   console.error("Error adding document: ", error);
 });
 
+
 function App() {
+  // const [currentUser, setCurrentUser] = useState(localStorage.getItem('id'))
+  // const storeUser = (user) => {
+  //   setCurrentUser({ user })
+  //   localStorage.setItem('id', user.id)
+  //   localStorage.setItem('firstName', user.firstName)
+  //   localStorage.setItem('lastName', user.lastName)
+  // }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes /*currentUser={currentUser} storeUser={storeUser}*/ />
     </div>
   );
 }
