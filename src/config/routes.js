@@ -1,5 +1,6 @@
 import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "../pages/Home";
+import Room from "../pages/Room";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const currentUser = localStorage.getItem("id"); //get currnet user
@@ -19,6 +20,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 
 export default (props) => (
   <Switch>
-    <Route exact path="/" comonent={Home} />
+    <Route exact path="/" component={Home} />
+    <Route path="/room" component={Room} />
   </Switch>
 );
