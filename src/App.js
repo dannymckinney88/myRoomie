@@ -1,9 +1,6 @@
-
 import Routes from "./config/routes";
-
-import logo from './logo.svg';
 import './App.css';
-import { firebase, db } from './firebase'
+import { db } from './firebase'
 
 db.collection("test from module").add({
   first: "Ada",
