@@ -10,32 +10,34 @@ const Home = () => {
         <p class="float-right px-3">sign up</p>
         <Logo class="w-20 ml-3" />
       </nav>
-      <div class="container mx-auto">
-        <div className="row">
-          <div class="grid grid-cols-2  mt-40">
-            <div class="break-words">
-              <h1 class="text-4xl font-bold">
-                myRoomie helping conect shared lilving, easier and covenient.
-              </h1>
-              <p class="font-medium mt-6">
-                Invite roomates, signficant others, or anyone living together,
-                and make living together a breeze. From spliting bills to
-                dividing chores and place to track all of it conveniently.
-              </p>
-              <form action="" class="row my-5">
-                <div class="d-none d-md-block col-md-7">
-                  <input type="email" class="form-control h-100" />
-                </div>
-              </form>
-            </div>
-            <div>
-              <img
-                src={img}
-                alt=""
-                class="max-w-3xl "
-                style={{ height: "300px" }}
-              />
-            </div>
+      <div class="container mx-auto ">
+        <div class=" mt-60 flex flex-wrap  lg:-mx-4">
+          <div class="break-words w-1/2 overflow-hidden lg:my-4 lg:px-4">
+            <h1 class="text-4xl font-bold">
+              myRoomie helping conect shared lilving, easier and covenient.
+            </h1>
+            <p class="font-medium mt-6">
+              Invite roomates, signficant others, or anyone living together, and
+              make living together a breeze. From spliting bills to dividing
+              chores and place to track all of it conveniently.
+            </p>
+            <form action="" class="row my-5">
+              <div class="flex justify-center">
+                <input type="email" class="h-10 w-96 mr-9" />
+                <button type="submit" class="bg-gray-50">
+                  Sign up for free
+                </button>
+              </div>
+              <div className="col-md-5 pl-md-2"></div>
+            </form>
+          </div>
+          <div class="w-1/2  lg:my-4 lg:px-2">
+            <img
+              src={img}
+              alt="Team at work paper img"
+              class=""
+              style={{ height: "60%" }}
+            />
           </div>
         </div>
       </div>
