@@ -11,8 +11,8 @@ const Home = () => {
         <Logo class="w-20 ml-3" />
       </nav>
       <div class="container mx-auto ">
-        <div class=" mt-60 flex flex-wrap  lg:-mx-4">
-          <div class="break-words w-1/2 overflow-hidden lg:my-4 lg:px-4">
+        <div class=" mt-40  grid grid-cols-2 sm:grid-cols-1 gap-10">
+          <div class="break-words ">
             <h1 class="text-4xl font-bold">
               myRoomie helping conect shared lilving, easier and covenient.
             </h1>
@@ -31,12 +31,12 @@ const Home = () => {
               <div className="col-md-5 pl-md-2"></div>
             </form>
           </div>
-          <div class="w-1/2  lg:my-4 lg:px-2">
+          <div class="w-1/2  ">
             <img
               src={img}
               alt="Team at work paper img"
-              class=""
-              style={{ height: "60%" }}
+              class="object-fill max-w-4xl"
+              // style={{ height: "90%" }}
             />
           </div>
         </div>
