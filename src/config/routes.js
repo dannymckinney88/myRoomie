@@ -3,6 +3,7 @@ import Home from "../pages/Home";
 import Room from "../pages/Room";
 import Signup from "../pages/Signup";
 import Login from "../pages/Login";
+import Profile from "../pages/Profile";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const currentUser = localStorage.getItem("id"); //get currnet user
@@ -26,5 +27,6 @@ export default (props) => (
     <Route path="/room" component={Room} />
     <Route path="/signup" component={Signup} />
     <Route path="/login" component={Login} />
+    <Route path="/profile" component={Profile} />
   </Switch>
 );

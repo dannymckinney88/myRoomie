@@ -1,14 +1,14 @@
-import firebase from 'firebase/app';
+import firebase from 'firebase';
 import 'firebase/firestore';
 import "firebase/auth"
 
-require('dotenv').config()
+//require('dotenv').config()
 require('firebase/firestore')
 
 const firebaseConfig = {
-    apiKey: process.env.apiKey,
-    authDomain: process.env.authDomain,
-    databaseURL: process.env.databaseURL,
+    apiKey: 'AIzaSyBK9mB9z57qLTOKXS-T9EgZzSJhT0PigiI',
+    authDomain: 'myroomie-2f3c7.firebaseapp.com',
+    databaseURL: 'https://myroomie-2f3c7-default-rtdb.firebaseio.com',
     projectId: "myroomie-2f3c7",
 };
 
@@ -16,4 +16,48 @@ firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth()
 export const db = firebase.firestore(); // NEW
-export default {firebase, firebaseConfig}
+export default {firebase, firebaseConfig, auth}
+
+let user;
+
+export const SignUp = (email, password) => {
+    console.log('inside the SIGNUP FUNCTION export')
+    auth.createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+        user = userCredential.user
+        localStorage.setItem("user",userCredential.user)
+        console.log(localStorage.getItem("user"))
+        console.log(userCredential.user)
+    })
+    .catch((error) => {
+        let errorCode = error.code;
+        let errorMessage = error.message;
+    })
+}
+
+export const SignInUser = (email, password) =>{
+auth.signInWithEmailAndPassword(email, password)
+.then((userCredential) => {
+  // Signed in
+    user = userCredential.user;
+  // ...
+})
+.catch((error) => {
+    let errorCode = error.code;
+    let errorMessage = error.message;
+});
+}
+
+export const SignedinUser = () =>{
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+        let uid = user.uid;
+        console.log(uid)
+          // ...
+        } else {
+          // User is signed out
+          // ...
+        }
+    });
+} 
+
