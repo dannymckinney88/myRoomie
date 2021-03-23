@@ -2,7 +2,7 @@ import { ReactComponent as Logo } from "../assets/myRoomie-logo/vector/default-m
 import img from "../assets/team-at-work.png";
 const Home = () => {
   return (
-    <div class="font-serif bg-green-100 h-screen	">
+    <div class="font-serif bg-green-300 h-screen	">
       <nav class="group  hover:bg-white hover:shadow-lg hover:border-transparent ...">
         <p class="text-black-600 group-hover:text-gray-900 float-right px-3">
           Log In
