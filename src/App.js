@@ -1,5 +1,6 @@
 import Routes from "./config/routes";
-import './App.css';
+import "./App.css";
+import { AuthProvider } from "./contexts/AuthContext";
 // import { db } from './firebase'
 
 // db.collection("test from module").add({
@@ -14,19 +15,12 @@ import './App.css';
 //   console.error("Error adding document: ", error);
 // });
 
-
 function App() {
-  // const [currentUser, setCurrentUser] = useState(localStorage.getItem('id'))
-  // const storeUser = (user) => {
-  //   setCurrentUser({ user })
-  //   localStorage.setItem('id', user.id)
-  //   localStorage.setItem('firstName', user.firstName)
-  //   localStorage.setItem('lastName', user.lastName)
-  // }
-
   return (
     <div className="App">
-      <Routes /*currentUser={currentUser} storeUser={storeUser}*/ />
+      <AuthProvider>
+        <Routes /*currentUser={currentUser} storeUser={storeUser}*/ />
+      </AuthProvider>
     </div>
   );
 }
