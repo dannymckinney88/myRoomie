@@ -1,15 +1,12 @@
 import { ReactComponent as Logo } from "../assets/myRoomie-logo/vector/default-monochrome.svg";
 import img from "../assets/team-at-work.png";
+import { Link } from "react-router-dom";
+import Nav1 from "../components/Nav1";
+
 const Home = () => {
   return (
     <div class="font-serif bg-green-300 h-screen	">
-      <nav class="group  hover:bg-white hover:shadow-lg hover:border-transparent ...">
-        <p class="text-black-600 group-hover:text-gray-900 float-right px-3">
-          Log In
-        </p>
-        <p class="float-right px-3">sign up</p>
-        <Logo class="w-20 ml-3" />
-      </nav>
+      <Nav1 />
       <div class="container mx-auto ">
         <div class=" mt-60 flex flex-wrap  lg:-mx-4">
           <digit v class="break-words w-1/2 overflow-hidden lg:my-4 lg:px-4">
