@@ -3,7 +3,7 @@ import * as FirestoreService from "../firebase";
 import Background from "../assets/signup-bg.jpg";
 import Nav1 from "../components/Nav1";
 
-const Signup = () => {
+const Signup = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleEmail = (e) => {
@@ -15,6 +15,7 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     FirestoreService.SignUp(email, password)
+    props.history.push('/profile') // needs to be redirected to profile page
   };
 
   const heroImgStyle = {
