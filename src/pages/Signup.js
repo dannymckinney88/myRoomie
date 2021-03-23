@@ -26,15 +26,12 @@ const Signup = () => {
   return (
     <div
       onSubmit={handleSubmit}
-      className="h-screen bg-gray-200 flex flex-col justify-center bg-fixed bg-center bg-cover bg-no-repeat"
+      className="h-screen flex flex-col bg-fixed bg-center bg-cover bg-no-repeat"
       style={heroImgStyle}
     >
       <Nav1 />
-      <div className="max-w-md w-full mx-auto">
-        <div className="text-center font-medium text-xl hover:text-green-700">
-          Welcome Roomie
-        </div>
-        <div className="text-3xl font-bold text-gray-500 mt-2 text-center">
+      <div className="w-full mx-auto pt-24">
+        <div className="text-3xl font-bold text-white mt-2 text-center">
           Signup
         </div>
         <div className="max-w-md mx-auto mt-4 bg-white p-8 border border-gray-300">
