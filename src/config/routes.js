@@ -1,4 +1,5 @@
 import { Switch, Route, Redirect } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import Home from "../pages/Home";
 import Room from "../pages/Room";
 import Signup from "../pages/Signup";
@@ -6,7 +7,7 @@ import Login from "../pages/Login";
 import Profile from "../pages/Profile";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const currentUser = localStorage.getItem("id"); //get currnet user
+  const { currentUser } = useAuth();
   return (
     <Route
       {...rest}
@@ -24,9 +25,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 export default (props) => (
   <Switch>
     <Route exact path="/" component={Home} />
-    <Route path="/room" component={Room} />
     <Route path="/signup" component={Signup} />
     <Route path="/login" component={Login} />
-    <Route path="/profile" component={Profile} />
+    <PrivateRoute path="/profile" component={Profile} />
+    <PrivateRoute path="/room" component={Room} />
   </Switch>
 );
