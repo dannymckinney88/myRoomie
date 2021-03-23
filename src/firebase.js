@@ -18,15 +18,46 @@ export const auth = firebase.auth()
 export const db = firebase.firestore(); // NEW
 export default {firebase, firebaseConfig, auth}
 
+let user;
+
 export const SignUp = (email, password) => {
-    //console.log('inside the SIGNUP FUNCTION export')
+    console.log('inside the SIGNUP FUNCTION export')
     auth.createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
-        let user = userCredential.user;
+        user = userCredential.user
+        localStorage.setItem("user",userCredential.user)
+        console.log(localStorage.getItem("user"))
+        console.log(userCredential.user)
     })
     .catch((error) => {
         let errorCode = error.code;
         let errorMessage = error.message;
     })
 }
+
+export const SignInUser = (email, password) =>{
+auth.signInWithEmailAndPassword(email, password)
+.then((userCredential) => {
+  // Signed in
+    user = userCredential.user;
+  // ...
+})
+.catch((error) => {
+    let errorCode = error.code;
+    let errorMessage = error.message;
+});
+}
+
+export const SignedinUser = () =>{
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+        let uid = user.uid;
+        console.log(uid)
+          // ...
+        } else {
+          // User is signed out
+          // ...
+        }
+    });
+} 
 
