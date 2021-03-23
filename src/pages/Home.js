@@ -1,6 +1,4 @@
-import { ReactComponent as Logo } from "../assets/myRoomie-logo/vector/default-monochrome.svg";
 import img from "../assets/team-at-work.png";
-import { Link } from "react-router-dom";
 import Nav1 from "../components/Nav1";
 
 const Home = () => {
