@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import SignUp from "../firebaseAuth/SignUp";
+import * as FirestoreService from "../firebase";
 import Background from "../assets/signup-bg.jpg";
 import Nav1 from "../components/Nav1";
 
-const Signup = () => {
+const Signup = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleEmail = (e) => {
@@ -14,9 +14,8 @@ const Signup = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { email } = setEmail;
-    const { password } = setPassword;
-    SignUp();
+    FirestoreService.SignUp(email, password)
+    props.history.push('/profile') // needs to be redirected to profile page
   };
 
   const heroImgStyle = {
@@ -25,7 +24,6 @@ const Signup = () => {
 
   return (
     <div
-      onSubmit={handleSubmit}
       className="h-screen bg-gray-200 flex flex-col justify-center bg-fixed bg-center bg-cover bg-no-repeat"
       style={heroImgStyle}
     >
@@ -38,7 +36,7 @@ const Signup = () => {
           Signup
         </div>
         <div className="max-w-md mx-auto mt-4 bg-white p-8 border border-gray-300">
-          <form action="" className="space-y-6">
+          <form onSubmit={handleSubmit} action="" className="space-y-6">
             <div>
               <label
                 htmlFor=""
@@ -72,7 +70,7 @@ const Signup = () => {
               />
             </div>
             <div>
-              <button className="w-full py-2 px4 bg-blue-600 hover:bg-blue-700 rounded-md text-white text-small ">
+              <button type="button" onClick={handleSubmit} className="w-full py-2 px4 bg-blue-600 hover:bg-blue-700 rounded-md text-white text-small ">
                 Submit
               </button>
             </div>
