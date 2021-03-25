@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import * as FirestoreService from "../firebase";
 import { useAuth } from "../contexts/AuthContext";
 
+// import { Tabs } from "@feuer/react-tabs";
+import { Link } from "react-router-dom";
+
 export default function Profile(props) {
   // console.log(FirestoreService.auth.currentUser.uid)
   const { currentUser, logout } = useAuth();
@@ -23,8 +26,11 @@ export default function Profile(props) {
   return (
     <div>
       <h1>Profile</h1>
-      <div></div>
-      <div></div>
+      <div>
+        <Link className="px-3" to="/room">
+          Room{" "}
+        </Link>
+      </div>
       <button className="bg-black text-white" onClick={handleLogout}>
         Sign Out
       </button>
