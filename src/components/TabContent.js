@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Tabs } from "@feuer/react-tabs";
 
 export default function TabContent(props) {
   return (
     <>
-      <Tabs.Tab id="tab1" title="Tab 1">
-        <div style={{ padding: 10 }} className="container">
+      <Tabs.Tab id={props.name} title={props.name}>
+        <div className="container pt-4">
           <div>
-            <h1>High</h1>
+            <h1>{props.name}</h1>
           </div>
         </div>
       </Tabs.Tab>
