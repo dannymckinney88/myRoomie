@@ -3,8 +3,7 @@ import Bill from "./Bill";
 
 export default function Bills() {
   return (
-    <div>
-      I am bills mf
+    <div className="container" class="container">
       <Bill />
     </div>
   );
