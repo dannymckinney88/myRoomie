@@ -23,6 +23,8 @@ export default function Profile(props) {
   return (
     <div>
       <h1>Profile</h1>
+      <div></div>
+      <div></div>
       <button className="bg-black text-white" onClick={handleLogout}>
         Sign Out
       </button>

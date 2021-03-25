@@ -43,11 +43,11 @@ const Signup = (props) => {
 
   return (
     <div
-      className="h-screen bg-gray-200 flex flex-col justify-center bg-fixed bg-center bg-cover bg-no-repeat"
+      className="h-screen bg-gray-200 flex flex-col  bg-fixed bg-center bg-cover bg-no-repeat"
       style={heroImgStyle}
     >
       <Nav1 />
-      <div className="w-full mx-auto pt-24">
+      <div className="w-full mx-auto mt-24">
         <div className="text-3xl font-bold text-white mt-2 text-center">
           Signup
         </div>
