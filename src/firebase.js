@@ -1,63 +1,37 @@
-import firebase from 'firebase';
-import 'firebase/firestore';
-import "firebase/auth"
+import firebase from "firebase";
+import "firebase/firestore";
+import "firebase/auth";
 
 //require('dotenv').config()
-require('firebase/firestore')
+require("firebase/firestore");
 
+// const firebaseConfig = {
+//   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+//   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+//   databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+//   projectId: "myroomie-2f3c7",
+// };
 const firebaseConfig = {
-    apiKey: 'AIzaSyBK9mB9z57qLTOKXS-T9EgZzSJhT0PigiI',
-    authDomain: 'myroomie-2f3c7.firebaseapp.com',
-    databaseURL: 'https://myroomie-2f3c7-default-rtdb.firebaseio.com',
-    projectId: "myroomie-2f3c7",
+  apiKey: "AIzaSyBK9mB9z57qLTOKXS-T9EgZzSJhT0PigiI",
+  authDomain: "myroomie-2f3c7.firebaseapp.com",
+  databaseURL: "https://myroomie-2f3c7-default-rtdb.firebaseio.com",
+  projectId: "myroomie-2f3c7",
 };
 
 firebase.initializeApp(firebaseConfig);
 
-export const auth = firebase.auth()
+export const auth = firebase.auth();
 export const db = firebase.firestore(); // NEW
-export default {firebase, firebaseConfig, auth}
 
-let user;
-
-export const SignUp = (email, password) => {
-    console.log('inside the SIGNUP FUNCTION export')
-    auth.createUserWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-        user = userCredential.user
-        localStorage.setItem("user",userCredential.user)
-        console.log(localStorage.getItem("user"))
-        console.log(userCredential.user)
-    })
-    .catch((error) => {
-        let errorCode = error.code;
-        let errorMessage = error.message;
-    })
-}
-
-export const SignInUser = (email, password) =>{
-auth.signInWithEmailAndPassword(email, password)
-.then((userCredential) => {
-  // Signed in
-    user = userCredential.user;
-  // ...
-})
-.catch((error) => {
-    let errorCode = error.code;
-    let errorMessage = error.message;
-});
-}
-
-export const SignedinUser = () =>{
-    auth.onAuthStateChanged((user) => {
-        if (user) {
-        let uid = user.uid;
-        console.log(uid)
-          // ...
-        } else {
-          // User is signed out
-          // ...
-        }
-    });
-} 
-
+export const SignedinUser = () => {
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      let uid = user.uid;
+      console.log(uid);
+      // ...
+    } else {
+      // User is signed out
+      // ...
+    }
+  });
+};

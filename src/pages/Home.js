@@ -1,7 +1,12 @@
 import img from "../assets/team-at-work.png";
 import Nav1 from "../components/Nav1";
+import Background from "../assets/home.jpg";
 
 const Home = () => {
+  const heroImgStyle = {
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url(${Background})`,
+  };
+
   return (
     <div class="font-serif bg-green-300 h-screen	">
       <Nav1 />
