@@ -45,7 +45,7 @@ const Login = (props) => {
       >
         <Nav1 />
         <div className="max-w-md w-full mx-auto">
-          <div className="text-3xl font-bold text-white mt-2 text-center mt-24"></div>
+          <div className="text-3xl font-bold text-white text-center mt-24"></div>
           <div className="max-w-md mx-auto mt-4 bg-white p-8 border border-gray-300">
             {error && <Alert error={error} />}
             <form onSubmit={handleSubmit} action="" className="space-y-6">
