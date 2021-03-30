@@ -1,9 +1,10 @@
 import React from "react";
-import Chore from "./Chore";
+import ChoreContainer from "./ChoreContainer";
+
 export default function Chores() {
   return (
     <div>
-      <Chore />
+      <ChoreContainer />
     </div>
   );
 }
