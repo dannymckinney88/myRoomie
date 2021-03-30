@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import useDropdown from '../useDropdown'
 
 function Task({ task, index, completeTask, removeTask }) {
   return (
