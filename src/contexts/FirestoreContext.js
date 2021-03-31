@@ -8,17 +8,27 @@ export function useFirestore() {
 }
 
 export function FirestoreProvider({ children }) {
-  function addRoom(name, uid, userName) {
-    return db.collection("rooms").add({
+  // Room API
+  // - Writes
+  const roomRef = db.collection("rooms")
+  const addRoom = async (name) => {
+    return roomRef.add({
       name: name,
     })
-    //   .collection("users")
-    //   .doc(uid)
-    //   .set({ name: userName })
   }
+  const addUserSub = async (uid, userName, roomId) => {
+    return roomRef.doc(roomId).collection("users").add({
+      name: userName,
+      uid: uid,
+    })
+  }
+
+  // -Reads
+  const getRooms = async () => {}
 
   const value = {
     addRoom,
+    addUserSub,
   }
 
   return (
