@@ -6,10 +6,12 @@ import { useAuth } from "../contexts/AuthContext"
 import { Link } from "react-router-dom"
 
 export default function Profile(props) {
-  // console.log(FirestoreService.auth.currentUser.uid)
-  const { currentUser, logout } = useAuth()
+  // var
+  // const [roomId, setRoomId] = useState("")
   const [error, setError] = useState("")
-  const { addRoom } = useFirestore()
+  // Auth & DB
+  const { currentUser, logout } = useAuth()
+  const { addRoom, addUserSub } = useFirestore()
 
   console.log(currentUser.uid)
 
@@ -25,12 +27,22 @@ export default function Profile(props) {
   }
 
   async function handleAddRoom() {
-    await addRoom("33", currentUser.uid, "Antonio")
+    await addRoom("Last house")
       .then((docRef) => {
-        console.log("docRed", docRef.id)
+        handleUserSubcollection(docRef.id)
       })
       .catch((error) => {
         console.log(error)
+      })
+    // console.log(roomId)
+  }
+  const handleUserSubcollection = async (roomId) => {
+    await addUserSub(currentUser.uid, "Danny", roomId)
+      .then((docRef) => {
+        console.log(docRef)
+      })
+      .catch((err) => {
+        console.log(err)
       })
   }
 
