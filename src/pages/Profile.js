@@ -3,20 +3,17 @@ import { useFirestore } from "../contexts/FirestoreContext"
 import { useAuth } from "../contexts/AuthContext"
 import { db } from "../firebase"
 import RoomButtons from "../components/RoomButtons"
-import { Link } from "react-router-dom"
-import Modal from "../components/modal/Modal"
+import CreateRoomModal from "../components/modal/CreateRoomModal"
 
 export default function Profile(props) {
   const [error, setError] = useState("")
   const [rooms, setRooms] = useState([])
   const [roomsId, setRoomsId] = useState([])
-  const modal = useRef(null)
   // Auth & DB
   const { currentUser, logout } = useAuth()
   const { addRoom, addUserSub, getRooms } = useFirestore()
 
-  console.log(currentUser.uid)
-
+  // Auth
   async function handleLogout() {
     setError("")
 
@@ -28,26 +25,7 @@ export default function Profile(props) {
     }
   }
 
-  async function handleAddRoom() {
-    await addRoom("The Cove", currentUser.uid)
-      .then((docRef) => {
-        handleUserSubcollection(docRef.id)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-    // console.log(roomId)
-  }
-  const handleUserSubcollection = async (roomId) => {
-    await addUserSub(currentUser.uid, "Danny", roomId)
-      .then((docRef) => {
-        console.log(docRef.id)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
-
+  // Firesotre Calls
   const fetchRooms = async () => {
     console.log(currentUser.uid)
     await db
@@ -65,7 +43,6 @@ export default function Profile(props) {
       })
   }
 
-  // Firesotre Calls
   useEffect(async () => {
     await fetchRooms()
   }, [])
@@ -76,14 +53,11 @@ export default function Profile(props) {
       <div>
         {rooms[0] ? <RoomButtons rooms={rooms} roomIds={roomsId} /> : "loading"}
       </div>
-      <div>
-        <button onClick={() => modal.current.open()}> Open Me</button>
-      </div>
-      <Modal ref={modal}>I am a modal</Modal>
+      <CreateRoomModal />
       <button className="bg-black text-white" onClick={handleLogout}>
         Sign Out
       </button>
-      <button onClick={handleAddRoom}>Add Room</button>
+      {/* <button onClick={handleAddRoom}>Add Room</button> */}
     </div>
   )
 }

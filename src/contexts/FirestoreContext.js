@@ -26,7 +26,10 @@ export function FirestoreProvider({ children }) {
 
   // -Reads
   const getRooms = async (userId) => {
-    return db.collectionGroup("users").where("uid", "==", userId)
+    return db
+      .collectionGroup("users")
+      .where("users", "array-contains", userId)
+      .get()
   }
 
   const value = {
