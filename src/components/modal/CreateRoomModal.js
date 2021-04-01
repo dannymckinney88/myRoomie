@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react"
 import { Redirect } from "react-router"
 import Modal from "./Modal"
-import "./modal.css"
 
 import { useFirestore } from "../../contexts/FirestoreContext"
 import { useAuth } from "../../contexts/AuthContext"
@@ -14,6 +13,7 @@ export default function CreateRoomModal(props) {
   // Auth & DB
   const { currentUser, logout } = useAuth()
   const { addRoom, addUserSub, getRooms } = useFirestore()
+  // Modal ref
   const modal = useRef(null)
 
   // Firestore

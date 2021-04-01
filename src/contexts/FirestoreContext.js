@@ -13,13 +13,13 @@ export function FirestoreProvider({ children }) {
   const roomRef = db.collection("rooms")
   const addRoom = async (name, uid) => {
     return roomRef.add({
-      name: name,
+      roomName: name,
       users: [uid],
     })
   }
   const addUserSub = async (uid, userName, roomId) => {
     return roomRef.doc(roomId).collection("occupants").add({
-      name: userName,
+      userName: userName,
       uid: uid,
     })
   }
