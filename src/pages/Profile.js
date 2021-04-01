@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { useFirestore } from "../contexts/FirestoreContext"
 import { useAuth } from "../contexts/AuthContext"
 import { db } from "../firebase"
 import RoomButtons from "../components/RoomButtons"
 import { Link } from "react-router-dom"
+import Modal from "../components/modal/Modal"
 
 export default function Profile(props) {
   const [error, setError] = useState("")
   const [rooms, setRooms] = useState([])
   const [roomsId, setRoomsId] = useState([])
+  const modal = useRef(null)
   // Auth & DB
   const { currentUser, logout } = useAuth()
   const { addRoom, addUserSub, getRooms } = useFirestore()
@@ -74,6 +76,10 @@ export default function Profile(props) {
       <div>
         {rooms[0] ? <RoomButtons rooms={rooms} roomIds={roomsId} /> : "loading"}
       </div>
+      <div>
+        <button onClick={() => modal.current.open()}> Open Me</button>
+      </div>
+      <Modal ref={modal}>I am a modal</Modal>
       <button className="bg-black text-white" onClick={handleLogout}>
         Sign Out
       </button>
