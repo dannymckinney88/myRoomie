@@ -3,12 +3,9 @@ import { useFirestore } from "../contexts/FirestoreContext"
 import { useAuth } from "../contexts/AuthContext"
 import { db } from "../firebase"
 import RoomButtons from "../components/RoomButtons"
-// import { Tabs } from "@feuer/react-tabs";
 import { Link } from "react-router-dom"
 
 export default function Profile(props) {
-  // var
-  // const [roomId, setRoomId] = useState("")
   const [error, setError] = useState("")
   const [rooms, setRooms] = useState([])
   const [roomsId, setRoomsId] = useState([])
@@ -75,9 +72,6 @@ export default function Profile(props) {
     <div>
       <h1>Profile</h1>
       <div>
-        {/* <Link className="px-3" to="/room/33">
-        
-        </Link> */}
         {rooms[0] ? <RoomButtons rooms={rooms} roomIds={roomsId} /> : "loading"}
       </div>
       <button className="bg-black text-white" onClick={handleLogout}>
