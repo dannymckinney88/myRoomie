@@ -1,25 +1,25 @@
-import React, { useState } from "react";
-import { Tabs } from "@feuer/react-tabs";
-import Bills from "./Bills";
-import Chores from "./Chores";
-import Dashboard from "./Dashboard";
+import React, { useState } from "react"
+import { Tabs } from "@feuer/react-tabs"
+import Bills from "./Bills"
+import Chores from "./Chores"
+import Dashboard from "./Dashboard"
 
 export default function Tab(props) {
-  const [list] = useState(["Bills", "Chores"]);
-  const [bills, setBills] = useState(["bills"]);
-  const [chores, setChores] = useState(["chores"]);
+  const [list] = useState(["Bills", "Chores"])
+  const [bills, setBills] = useState(["bills"])
+  const [chores, setChores] = useState(["chores"])
   // const styles = {
   //   fontFamily: "sans-serif",
   //   textAlign: "center",
   // };
-  console.log(props);
+  console.log(props)
 
   // const tabs = list.map((tab) => <TabContent name={tab} />);
   return (
     <div>
       <Tabs
         activeTab={{
-          id: list[0],
+          id: "Dashboard",
         }}
       >
         <Tabs.Tab id="Dashboard" title="Dashboard">
@@ -33,5 +33,5 @@ export default function Tab(props) {
         </Tabs.Tab>
       </Tabs>
     </div>
-  );
+  )
 }
