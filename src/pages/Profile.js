@@ -1,7 +1,8 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useFirestore } from "../contexts/FirestoreContext"
 import { useAuth } from "../contexts/AuthContext"
-
+import { db } from "../firebase"
+import RoomButtons from "../components/RoomButtons"
 // import { Tabs } from "@feuer/react-tabs";
 import { Link } from "react-router-dom"
 
@@ -9,9 +10,11 @@ export default function Profile(props) {
   // var
   // const [roomId, setRoomId] = useState("")
   const [error, setError] = useState("")
+  const [rooms, setRooms] = useState([])
+  const [roomsId, setRoomsId] = useState([])
   // Auth & DB
   const { currentUser, logout } = useAuth()
-  const { addRoom, addUserSub } = useFirestore()
+  const { addRoom, addUserSub, getRooms } = useFirestore()
 
   console.log(currentUser.uid)
 
@@ -27,7 +30,7 @@ export default function Profile(props) {
   }
 
   async function handleAddRoom() {
-    await addRoom("Last house")
+    await addRoom("The Cove", currentUser.uid)
       .then((docRef) => {
         handleUserSubcollection(docRef.id)
       })
@@ -39,20 +42,43 @@ export default function Profile(props) {
   const handleUserSubcollection = async (roomId) => {
     await addUserSub(currentUser.uid, "Danny", roomId)
       .then((docRef) => {
-        console.log(docRef)
+        console.log(docRef.id)
       })
       .catch((err) => {
         console.log(err)
       })
   }
 
+  const fetchRooms = async () => {
+    console.log(currentUser.uid)
+    await db
+      .collection("rooms")
+      .where("users", "array-contains", currentUser.uid)
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((doc) => {
+          setRooms((oldArray) => [...oldArray, doc.data()])
+          setRoomsId((oldArray) => [...oldArray, doc.id])
+        })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  // Firesotre Calls
+  useEffect(async () => {
+    await fetchRooms()
+  }, [])
+
   return (
     <div>
       <h1>Profile</h1>
       <div>
-        <Link className="px-3" to="/room">
-          Room{" "}
-        </Link>
+        {/* <Link className="px-3" to="/room/33">
+        
+        </Link> */}
+        {rooms[0] ? <RoomButtons rooms={rooms} roomIds={roomsId} /> : "loading"}
       </div>
       <button className="bg-black text-white" onClick={handleLogout}>
         Sign Out
