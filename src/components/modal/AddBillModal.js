@@ -1,12 +1,17 @@
 import React, { useState, useRef } from "react"
 import Modal from "./Modal"
 import UserInput from "../UserInput"
+import { useFirestore } from "../../contexts/FirestoreContext"
 
 export default function AddBillModal() {
   const modal = useRef(null)
   const [users, setUsers] = useState([])
   const [bill, setBill] = useState("")
   const [counter, setCounter] = useState([1])
+  const [usersPaying, setUsersPaying] = useState()
+
+  const { room } = useFirestore()
+  console.log(room, room.userNames[0])
 
   const handleBillChange = (e) => {
     setBill(e.target.value)
@@ -27,6 +32,10 @@ export default function AddBillModal() {
     setUsers((oldArray) => [...oldArray, name])
     console.log(users)
   }
+
+  const userSelect = room.userNames.map((name) => (
+    <UserInput handleUser={handleUser} user={room.userNames} />
+  ))
 
   return (
     <div>
@@ -51,7 +60,7 @@ export default function AddBillModal() {
               name="bill"
             />
           </div>
-          <UserInput handleUser={handleUser} />
+          {userSelect}
           <button type="submit">Add Room</button>
         </form>
         <button value={1} onClick={changeCounter}>
