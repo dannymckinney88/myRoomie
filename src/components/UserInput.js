@@ -8,19 +8,12 @@ export default function UserInput(props) {
     setName(e.target.value)
     console.log(name)
   }
+
+  const options = props.user.map((name) => <option value={name}>{name}</option>)
   return (
     <div>
-      <label htmlFor="" className="text-small font-bold text-gray-600 block">
-        User
-      </label>
-      <input
-        onChange={handleName}
-        value={name}
-        className="w-full p-2 border border-gray-300 rounded mt-1"
-        type="text"
-        id="bill"
-        name="bill"
-      />
+      <label for="cars">Choose Roomie</label>
+      <select>{options}</select>
       <button
         style={{ display: hide }}
         onClick={() => {
