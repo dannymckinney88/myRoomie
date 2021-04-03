@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import BillItems from "./BillItems";
+import React, { useState, useEffect } from "react"
+import BillItems from "./BillItems"
 export default function Bill() {
   const [bills] = useState([
     {
@@ -11,15 +11,15 @@ export default function Bill() {
       ],
       amount: 1300,
     },
-  ]);
+  ])
   //   const bill = bills.map((billInfo) => console.log(billInfo));
   let log = function (msg) {
-    console.log(msg);
-  };
+    console.log(msg)
+  }
 
   useEffect(() => {
-    bills.map(log);
-  }, []);
+    bills.map(log)
+  }, [])
 
   const bill = bills.map((billInfo) => (
     <>
@@ -29,7 +29,6 @@ export default function Bill() {
         </h2>
       </div>
       <table class="table-auto shadow-lg bg-white">
-        <thead> {/* <h2 className="text-center">{billInfo.name}</h2> */}</thead>
         <thead>
           <tr>
             <th>Roomie</th>
@@ -79,7 +78,7 @@ export default function Bill() {
           </tbody>
         </table> */}
     </>
-  ));
+  ))
 
-  return <div>{bill}</div>;
+  return <div>{bill}</div>
 }
