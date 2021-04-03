@@ -6,12 +6,11 @@ import { useFirestore } from "../contexts/FirestoreContext"
 const Room = (props) => {
   const [roomId] = useState(props.match.params.id)
   const [roomName] = useState(props.match.params.name)
-  const [roomRef] = useState(db.collection("rooms").doc(roomId))
-  console.log(roomId, roomName)
 
   const { fetchRoom } = useFirestore()
 
   useEffect(() => {
+    // Gets current room
     fetchRoom(roomId)
   }, [])
   return (

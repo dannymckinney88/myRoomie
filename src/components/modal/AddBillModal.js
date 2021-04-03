@@ -10,8 +10,8 @@ export default function AddBillModal() {
   const [counter, setCounter] = useState([1])
   const [usersPaying, setUsersPaying] = useState([])
 
+  //   Current room data
   const { room } = useFirestore()
-  console.log(room, room.userNames[0])
 
   const handleBillChange = (e) => {
     setBill(e.target.value)
@@ -24,18 +24,15 @@ export default function AddBillModal() {
 
   const changeCounter = (e) => {
     setCounter((oldArray) => [...oldArray, e.target.value])
-    console.log(counter)
   }
 
   const handleUser = (name) => {
-    console.log(name)
     setUsers((oldArray) => [...oldArray, name])
-    console.log(users)
   }
 
-  const userSelect = room.userNames.map((name) => (
-    <UserInput handleUser={handleUser} user={room.userNames} />
-  ))
+  //   const userSelect = room.userNames.map((name) => (
+  //     <UserInput handleUser={handleUser} user={room.userNames} />
+  //   ))
 
   return (
     <div>
