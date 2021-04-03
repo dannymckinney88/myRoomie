@@ -8,7 +8,7 @@ export default function AddBillModal() {
   const [users, setUsers] = useState([])
   const [bill, setBill] = useState("")
   const [counter, setCounter] = useState([1])
-  const [usersPaying, setUsersPaying] = useState()
+  const [usersPaying, setUsersPaying] = useState([])
 
   const { room } = useFirestore()
   console.log(room, room.userNames[0])
@@ -60,7 +60,7 @@ export default function AddBillModal() {
               name="bill"
             />
           </div>
-          {userSelect}
+          <UserInput handleUser={handleUser} user={room.userNames} />
           <button type="submit">Add Room</button>
         </form>
         <button value={1} onClick={changeCounter}>

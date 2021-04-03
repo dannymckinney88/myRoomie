@@ -3,21 +3,34 @@ import React, { useState } from "react"
 export default function UserInput(props) {
   const [name, setName] = useState("")
   const [hide, setHide] = useState("block")
+  const [selectValue, setSelectValue] = useState(props.user[0])
 
   const handleName = (e) => {
-    setName(e.target.value)
+    console.log("d")
+    setName(e.currentTarget.value)
     console.log(name)
   }
 
-  const options = props.user.map((name) => <option value={name}>{name}</option>)
+  const handleChange = (e) => {
+    setSelectValue(e.target.value)
+  }
+
+  const options = props.user.map((name, index) => (
+    <option key={index} value={name}>
+      {name}
+    </option>
+  ))
   return (
     <div>
       <label for="cars">Choose Roomie</label>
-      <select>{options}</select>
+      <select onChange={handleChange} value={selectValue}>
+        {options}
+        <option value="Tony">tony</option>
+      </select>
       <button
         style={{ display: hide }}
         onClick={() => {
-          props.handleUser()
+          props.handleUser(selectValue)
           setHide("none")
         }}
       >
