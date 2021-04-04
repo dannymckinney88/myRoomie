@@ -7,11 +7,10 @@ import CreateRoomModal from "../components/modal/CreateRoomModal"
 
 export default function Profile(props) {
   const [error, setError] = useState("")
-  const [rooms, setRooms] = useState([])
-  const [roomsId, setRoomsId] = useState([])
+
   // Auth & DB
   const { currentUser, logout } = useAuth()
-  const { addRoom, addUserSub, getRooms } = useFirestore()
+  const { rooms, roomsId, fetchRooms } = useFirestore()
 
   // Auth
   async function handleLogout() {
@@ -26,32 +25,20 @@ export default function Profile(props) {
   }
 
   // Firesotre Calls
-  const fetchRooms = async () => {
+  const getRooms = async () => {
     console.log(currentUser.uid)
-    await db
-      .collection("rooms")
-      .where("users", "array-contains", currentUser.uid)
-      .get()
-      .then((snapshot) => {
-        snapshot.forEach((doc) => {
-          setRooms((oldArray) => [...oldArray, doc.data()])
-          setRoomsId((oldArray) => [...oldArray, doc.id])
-        })
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    await fetchRooms(currentUser.uid)
   }
 
   useEffect(async () => {
-    await fetchRooms()
+    await getRooms()
   }, [])
 
   return (
     <div>
       <h1>Profile</h1>
       <div>
-        {rooms[0] ? <RoomButtons rooms={rooms} roomIds={roomsId} /> : "loading"}
+        {rooms[0] ? <RoomButtons rooms={rooms} roomIds={roomsId} /> : { error }}
       </div>
       <CreateRoomModal />
       <button className="bg-black text-white" onClick={handleLogout}>

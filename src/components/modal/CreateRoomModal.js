@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react"
 import { Redirect } from "react-router"
 import Modal from "./Modal"
-import "./modal.css"
 
 import { useFirestore } from "../../contexts/FirestoreContext"
 import { useAuth } from "../../contexts/AuthContext"
@@ -11,15 +10,17 @@ export default function CreateRoomModal(props) {
   const [roomId, setRoomId] = useState([])
   const [roomName, setRoomName] = useState("")
   const [redirect, setRedirect] = useState(false)
+  const [userName, setUserName] = useState("")
   // Auth & DB
   const { currentUser, logout } = useAuth()
   const { addRoom, addUserSub, getRooms } = useFirestore()
+  // Modal ref
   const modal = useRef(null)
 
   // Firestore
   async function handleAddRoom(e) {
     e.preventDefault()
-    await addRoom(roomName, currentUser.uid)
+    await addRoom(roomName, currentUser.uid, userName)
       .then((docRef) => {
         console.log("Created room ID", docRef.id)
         setRoomId(docRef.id)
@@ -45,6 +46,10 @@ export default function CreateRoomModal(props) {
   const handleRoomName = (e) => {
     setRoomName(e.target.value)
   }
+
+  const handleUserName = (e) => {
+    setUserName(e.target.value)
+  }
   return (
     <>
       {redirect ? (
@@ -66,6 +71,22 @@ export default function CreateRoomModal(props) {
                 <input
                   onChange={handleRoomName}
                   value={roomName}
+                  className="w-full p-2 border border-gray-300 rounded mt-1"
+                  type="text"
+                  id="room-name"
+                  name="room-name"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor=""
+                  className="text-small font-bold text-gray-600 block"
+                >
+                  Your name
+                </label>
+                <input
+                  onChange={handleUserName}
+                  value={userName}
                   className="w-full p-2 border border-gray-300 rounded mt-1"
                   type="text"
                   id="room-name"
