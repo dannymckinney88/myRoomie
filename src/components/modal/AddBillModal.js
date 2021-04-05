@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react"
 import Modal from "./Modal"
 import UserInput from "../UserInput"
+import CheckBoxs from "./CheckBoxs"
 import { useFirestore } from "../../contexts/FirestoreContext"
 
 export default function AddBillModal() {
@@ -9,6 +10,7 @@ export default function AddBillModal() {
   const [bill, setBill] = useState("")
   const [counter, setCounter] = useState([1])
   const [usersPaying, setUsersPaying] = useState([])
+  const [checkBoxOptions, setCheckBoxOptions] = useState([])
 
   const { room } = useFirestore()
   console.log(room, room.userNames[0])
@@ -31,11 +33,43 @@ export default function AddBillModal() {
     console.log(name)
     setUsers((oldArray) => [...oldArray, name])
     console.log(users)
+    // console.log(userSelect)
+    createSelection()
+    console.log(checkBoxOptions)
   }
 
-  const userSelect = room.userNames.map((name) => (
-    <UserInput handleUser={handleUser} user={room.userNames} />
+  const createSelection = () => {
+    setCheckBoxOptions(
+      room.userNames.map((name, index) => {
+        console.log(name)
+        return {
+          select: false,
+          id: index,
+          name: name,
+        }
+      })
+    )
+  }
+
+  const checkBoxs = checkBoxOptions.map((option, index) => (
+    <div key={index}>
+      <label htmlFor="name">{option.name}</label>
+    </div>
   ))
+
+  // const userSelect = room.userNames.map((name, index) => {
+  //   setCheckBoxOptions((oldArray) => [
+  //     ...oldArray,
+  //     {
+  //       name: oldArray.name,
+  //       id: index,
+  //       checked: false,
+  //     },
+  //   ])
+  //   return (
+  //     <UserInput key={index} handleUser={handleUser} user={room.userNames} />
+  //   )
+  // })
 
   return (
     <div>
@@ -60,10 +94,11 @@ export default function AddBillModal() {
               name="bill"
             />
           </div>
+          <CheckBoxs checkBoxOptions={checkBoxOptions} />
           <UserInput handleUser={handleUser} user={room.userNames} />
           <button type="submit">Add Room</button>
         </form>
-        <button value={1} onClick={changeCounter}>
+        <button value={1} onClick={handleUser}>
           Add user
         </button>
       </Modal>
