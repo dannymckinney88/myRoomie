@@ -12,17 +12,9 @@ export default function Bill() {
       amount: 1300,
     },
   ])
-  //   const bill = bills.map((billInfo) => console.log(billInfo));
-  let log = function (msg) {
-    console.log(msg)
-  }
 
-  useEffect(() => {
-    bills.map(log)
-  }, [])
-
-  const bill = bills.map((billInfo) => (
-    <>
+  const bill = bills.map((billInfo, index) => (
+    <div key={index + 1}>
       <div>
         <h2 className="text-left text-2xl font-bold uppercase">
           {billInfo.name}
@@ -37,9 +29,10 @@ export default function Bill() {
           </tr>
         </thead>
         <tbody>
-          {billInfo.paidBy.map((person) => (
+          {billInfo.paidBy.map((person, index) => (
             <>
               <BillItems
+                key={index}
                 name={person.name}
                 paid={person.paid}
                 amount={billInfo.amount / billInfo.paidBy.length}
@@ -48,36 +41,7 @@ export default function Bill() {
           ))}
         </tbody>
       </table>
-      {/* <table class="table-auto shadow-lg bg-white">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Author</th>
-              <th>Views</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="border px-8 py-4">Intro to CSS</td>
-              <td className="border px-8 py-4">Adam</td>
-              <td className="border px-8 py-4">858</td>
-            </tr>
-            <tr class="bg-emerald-200">
-              <td>
-                A Long and Winding Tour of the History of UI Frameworks and
-                Tools and the Impact on Design
-              </td>
-              <td>Adam</td>
-              <td>112</td>
-            </tr>
-            <tr>
-              <td>Intro to JavaScript</td>
-              <td>Chris</td>
-              <td>1,280</td>
-            </tr>
-          </tbody>
-        </table> */}
-    </>
+    </div>
   ))
 
   return <div>{bill}</div>
