@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import Modal from "./Modal"
 import UserInput from "../UserInput"
 import CheckBoxs from "./CheckBoxs"
@@ -13,7 +13,6 @@ export default function AddBillModal() {
   const [checkBoxOptions, setCheckBoxOptions] = useState([])
 
   const { room } = useFirestore()
-  console.log(room, room.userNames[0])
 
   const handleBillChange = (e) => {
     setBill(e.target.value)
@@ -51,11 +50,11 @@ export default function AddBillModal() {
     )
   }
 
-  const checkBoxs = checkBoxOptions.map((option, index) => (
-    <div key={index}>
-      <label htmlFor="name">{option.name}</label>
-    </div>
-  ))
+  useEffect(() => {
+    createSelection()
+  }, [])
+
+  // const checkBoxs =
 
   // const userSelect = room.userNames.map((name, index) => {
   //   setCheckBoxOptions((oldArray) => [
@@ -94,8 +93,37 @@ export default function AddBillModal() {
               name="bill"
             />
           </div>
-          <CheckBoxs checkBoxOptions={checkBoxOptions} />
-          <UserInput handleUser={handleUser} user={room.userNames} />
+
+          <div className="flex flex-row">
+            {checkBoxOptions.map((option, index) => (
+              <div
+                className="flex flex-col justify-items-center justify-centers items-center p-4"
+                key={index}
+              >
+                <label htmlFor="name">{option.name}</label>
+                <input
+                  onChange={(event) => {
+                    let checked = event.target.checked
+                    setCheckBoxOptions(
+                      checkBoxOptions.map((data) => {
+                        if (option.id === data.id && data.select === false) {
+                          data.select = true
+                        } else if (
+                          option.id === data.id &&
+                          data.select === true
+                        ) {
+                          data.select = false
+                        }
+                        return data
+                      })
+                    )
+                  }}
+                  user={option.name}
+                  type="checkbox"
+                />
+              </div>
+            ))}
+          </div>
           <button type="submit">Add Room</button>
         </form>
         <button value={1} onClick={handleUser}>
