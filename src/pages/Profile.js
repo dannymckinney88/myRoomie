@@ -1,14 +1,19 @@
 import React, { useState, useEffect, useRef } from "react"
 import { useFirestore } from "../contexts/FirestoreContext"
 import { useAuth } from "../contexts/AuthContext"
-import { db } from "../firebase"
 import RoomButtons from "../components/RoomButtons"
 import CreateRoomModal from "../components/modal/CreateRoomModal"
 
 export default function Profile(props) {
-  const { rooms, roomsId, fetchRooms, fetchBills, bills } = useFirestore()
+  const {
+    rooms,
+    roomsId,
+    fetchRooms,
+    fetchBills,
+    checkBoxOptions,
+  } = useFirestore()
   const [error, setError] = useState("")
-  const [currentRooms, setCurrentRooms] = useState(rooms)
+  const [currentRooms] = useState(rooms)
   // const [roomsId, setRoomsId] = useState([])
   // Auth & DB
   const { currentUser, logout } = useAuth()
@@ -35,7 +40,8 @@ export default function Profile(props) {
   useEffect(async () => {
     await getRooms()
     await fetchBills()
-    console.log(bills)
+
+    console.log(checkBoxOptions)
   }, [])
 
   return (

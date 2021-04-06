@@ -1,19 +1,14 @@
 import React, { useState, useRef, useEffect } from "react"
 import Modal from "./Modal"
-import UserInput from "../UserInput"
-import CheckBoxs from "./CheckBoxs"
 import { useFirestore } from "../../contexts/FirestoreContext"
 
 export default function AddBillModal() {
   const modal = useRef(null)
-  const [users, setUsers] = useState([])
   const [billName, setBillName] = useState("")
   const [billAmount, setBillAmount] = useState()
-  const [counter, setCounter] = useState([1])
-  const [usersPaying, setUsersPaying] = useState([])
   const [checkBoxOptions, setCheckBoxOptions] = useState([])
 
-  const { room } = useFirestore()
+  const { room, addBill } = useFirestore()
 
   const handleBillName = (e) => {
     setBillName(e.target.value)
@@ -24,6 +19,7 @@ export default function AddBillModal() {
   }
   const handleBill = async (e) => {
     e.preventDefault()
+    addBill(billName, billAmount, checkBoxOptions)
     console.log(billName)
     console.log(billAmount, checkBoxOptions)
   }
@@ -33,7 +29,7 @@ export default function AddBillModal() {
       room.userNames.map((name, index) => {
         console.log(name)
         return {
-          select: false,
+          paid: false,
           id: index,
           name: name,
         }
@@ -42,8 +38,9 @@ export default function AddBillModal() {
   }
 
   useEffect(() => {
+    console.log(room, "room")
     createSelection()
-  }, [])
+  }, [room])
 
   return (
     <div>
@@ -55,7 +52,7 @@ export default function AddBillModal() {
           <div>
             <label
               htmlFor="bill"
-              className="text-small font-bold text-gray-600 block"
+              className="text-small font-bold text-gray-600 block py-1 pt-1"
             >
               Bill
             </label>
@@ -71,14 +68,14 @@ export default function AddBillModal() {
           <div>
             <label
               htmlFor="amount"
-              className="text-small font-bold text-gray-600 block"
+              className="text-small font-bold text-gray-600 block py-1 pt-4"
             >
               Amount $
             </label>
             <input
               onChange={handleBillAmount}
               value={billAmount}
-              className="w-full p-2 border border-gray-300 rounded mt-1"
+              className="w-full p-2 border border-gray-300 rounded mt-1 "
               type="text"
               id="amount"
               name="amount"
@@ -86,36 +83,38 @@ export default function AddBillModal() {
           </div>
 
           <div className="flex flex-row">
-            {checkBoxOptions.map((option, index) => (
-              <div
-                className="flex flex-col justify-items-center justify-centers items-center p-4"
-                key={index}
-              >
-                <label htmlFor="name">{option.name}</label>
-                <input
-                  onChange={(event) => {
-                    let checked = event.target.checked
-                    setCheckBoxOptions(
-                      checkBoxOptions.map((data) => {
-                        if (option.id === data.id && data.select === false) {
-                          data.select = true
-                        } else if (
-                          option.id === data.id &&
-                          data.select === true
-                        ) {
-                          data.select = false
-                        }
-                        return data
-                      })
-                    )
-                  }}
-                  user={option.name}
-                  type="checkbox"
-                />
-              </div>
-            ))}
+            {checkBoxOptions.length > 1
+              ? checkBoxOptions.map((option, index) => (
+                  <div
+                    className="flex flex-col justify-items-center justify-centers items-center p-4"
+                    key={index}
+                  >
+                    <label htmlFor="name">{option.name}</label>
+                    <input
+                      onChange={(event) => {
+                        let checked = event.target.checked
+                        setCheckBoxOptions(
+                          checkBoxOptions.map((data) => {
+                            if (option.id === data.id && data.paid === false) {
+                              data.paid = true
+                            } else if (
+                              option.id === data.id &&
+                              data.paid === true
+                            ) {
+                              data.paid = false
+                            }
+                            return data
+                          })
+                        )
+                      }}
+                      user={option.name}
+                      type="checkbox"
+                    />
+                  </div>
+                ))
+              : ""}
           </div>
-          <button type="submit" onClick={handleBill}>
+          <button type="submit" className="py-1 pt-4" onClick={handleBill}>
             Add Room
           </button>
         </form>

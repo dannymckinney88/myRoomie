@@ -8,14 +8,11 @@ const Room = (props) => {
   const [roomId] = useState(props.match.params.id)
   const [roomName] = useState(props.match.params.name)
 
-  const { fetchRoom, fetchBills } = useFirestore()
+  const { fetchRoom, fetchBills, room } = useFirestore()
 
   useEffect(() => {
-    async function fetchData() {
-      await fetchRoom(roomId)
-      await fetchBills()
-    }
-    fetchData()
+    fetchRoom(roomId)
+    fetchBills()
   }, [])
   return (
     <div>
