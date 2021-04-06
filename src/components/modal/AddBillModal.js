@@ -24,12 +24,15 @@ export default function AddBillModal() {
     console.log(billAmount, checkBoxOptions)
   }
 
+  const clearSelectio = () => [setCheckBoxOptions({})]
+
   const createSelection = () => {
+    clearSelectio()
     setCheckBoxOptions(
       room.userNames.map((name, index) => {
         console.log(name)
         return {
-          paid: false,
+          paid: true,
           id: index,
           name: name,
         }
