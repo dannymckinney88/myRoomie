@@ -15,7 +15,7 @@ export function FirestoreProvider({ children }) {
   const [bills, setBills] = useState([])
 
   // Room API
-  // - Writes
+  // -------- Writes
   const roomRef = db.collection("rooms")
   const addRoom = async (roonnName, uid, userName) => {
     return roomRef.add({
@@ -31,26 +31,31 @@ export function FirestoreProvider({ children }) {
     })
   }
 
-  const addBill = async (name, amount, users) => {
-    console.log(name, amount, users)
+  const addBill = async (name, amount, usersArray) => {
+    const users = []
+    usersArray.forEach((user) => {
+      console.log(user)
+      if (user.paid === true) {
+        users.push(user)
+      }
+    })
     return roomRef
       .doc(roomId)
       .collection("Bills")
-      .doc(name)
-      .set({
+      .add({
         billName: name,
-        totalAmout: amount,
+        totalAmount: amount,
         users: users,
       })
       .then((doc) => {
         console.log("doc created with id -", doc.id)
-        console.log("doc data", doc.date())
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error.message)
       })
   }
-  // -- Reads
+
+  // ------------ Reads
   const fetchRooms = async (uid) => {
     if (rooms.length < 1) {
       await db
@@ -58,9 +63,7 @@ export function FirestoreProvider({ children }) {
         .where("userIds", "array-contains", uid)
         .get()
         .then((snapshot) => {
-          console.log(uid)
           snapshot.forEach((doc) => {
-            console.log(doc.id)
             setRooms((oldArray) => [...oldArray, doc.data()])
             setRoomsId((oldArray) => [...oldArray, doc.id])
           })
@@ -72,14 +75,12 @@ export function FirestoreProvider({ children }) {
   }
 
   const fetchRoom = async (roomId) => {
-    console.log("Im suppose to get a room")
+    console.log(roomId)
     await db
       .collection("rooms")
       .doc(roomId)
       .get()
       .then((doc) => {
-        console.log(doc.id)
-        console.log("doc Data :", doc.data())
         setRoom(doc.data())
         setRoomId(doc.id)
       })
@@ -87,17 +88,17 @@ export function FirestoreProvider({ children }) {
 
   // All bills for a room
   const fetchBills = async () => {
-    if (bills.length < 1) {
-      db.collection("rooms")
-        .doc("ITm0basFkOZeknvZNxWO")
-        .collection("Bills")
-        .get()
-        .then((snapshot) => {
-          snapshot.forEach((doc) => {
-            setBills((oldArray) => [...oldArray, doc.data()])
-          })
+    setBills([])
+    db.collection("rooms")
+      .doc(roomId)
+      .collection("Bills")
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((doc) => {
+          // console.log(doc.data())
+          setBills((oldArray) => [...oldArray, doc.data()])
         })
-    }
+      })
   }
 
   // Fetchs all bills of a spefic user
