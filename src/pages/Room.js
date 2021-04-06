@@ -7,12 +7,35 @@ import { useFirestore } from "../contexts/FirestoreContext"
 const Room = (props) => {
   const [roomId] = useState(props.match.params.id)
   const [roomName] = useState(props.match.params.name)
+  const [bills, setBills] = useState([])
 
-  const { fetchRoom, fetchBills, room } = useFirestore()
+  const { fetchRoom } = useFirestore()
+
+  const fetchBills = () => {
+    console.log(roomId)
+    db.collection("rooms")
+      .doc(roomId)
+      .collection("Bills")
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((doc) => {
+          console.log(doc.data())
+          setBills((oldArray) => [...oldArray, doc.data()])
+        })
+      })
+    console.log(bills)
+  }
 
   useEffect(() => {
-    fetchRoom(roomId)
-    fetchBills()
+    async function run() {
+      console.log(roomId)
+      await fetchRoom(roomId)
+      // setBills([])
+      await fetchBills()
+
+      console.log(bills)
+    }
+    run()
   }, [])
   return (
     <div>
@@ -20,7 +43,7 @@ const Room = (props) => {
         Home{" "}
       </Link>
       <h1>Welcome to {roomName}</h1>
-      <TabsContainer roomId={roomId} />
+      <TabsContainer roomId={roomId} bills={bills} />
     </div>
   )
 }

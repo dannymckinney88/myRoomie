@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import BillItems from "./BillItems"
-export default function Bill() {
+
+export default function Bill(props) {
   const [bills] = useState([
     {
       name: "rent",
@@ -12,12 +13,13 @@ export default function Bill() {
       amount: 1300,
     },
   ])
+  console.log(props.bill.totalAmount)
 
-  const bill = bills.map((billInfo, index) => (
-    <div key={index + 1}>
+  return (
+    <div>
       <div>
         <h2 className="text-left text-2xl font-bold uppercase">
-          {billInfo.name}
+          {props.bill.billName}
         </h2>
       </div>
       <table class="table-auto shadow-lg bg-white">
@@ -29,20 +31,18 @@ export default function Bill() {
           </tr>
         </thead>
         <tbody>
-          {billInfo.paidBy.map((person, index) => (
+          {props.bill.users.map((person, index) => (
             <>
               <BillItems
                 key={index}
                 name={person.name}
                 paid={person.paid}
-                amount={billInfo.amount / billInfo.paidBy.length}
+                amount={props.bill.totalAmount}
               />
             </>
           ))}
         </tbody>
       </table>
     </div>
-  ))
-
-  return <div>{bill}</div>
+  )
 }
