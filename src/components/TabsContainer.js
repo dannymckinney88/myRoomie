@@ -5,6 +5,7 @@ import Chores from "./Chores"
 import Dashboard from "./Dashboard"
 
 export default function Tab(props) {
+  console.log(props.bills)
   return (
     <div>
       <Tabs
@@ -19,7 +20,7 @@ export default function Tab(props) {
           <Chores />
         </Tabs.Tab>
         <Tabs.Tab id="bills" title="bills">
-          <Bills />
+          <Bills bills={props.bills} />
         </Tabs.Tab>
       </Tabs>
     </div>
