@@ -3,11 +3,10 @@ import TabsContainer from "../components/TabsContainer"
 import { Link } from "react-router-dom"
 import { db } from "../firebase"
 import { useFirestore } from "../contexts/FirestoreContext"
+
 const Room = (props) => {
   const [roomId] = useState(props.match.params.id)
   const [roomName] = useState(props.match.params.name)
-  const [roomRef] = useState(db.collection("rooms").doc(roomId))
-  console.log(roomId, roomName)
 
   const { fetchRoom, fetchBills } = useFirestore()
 
@@ -16,6 +15,7 @@ const Room = (props) => {
       await fetchRoom(roomId)
       await fetchBills()
     }
+    fetchData()
   }, [])
   return (
     <div>
