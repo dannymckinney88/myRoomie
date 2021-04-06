@@ -6,12 +6,12 @@ import RoomButtons from "../components/RoomButtons"
 import CreateRoomModal from "../components/modal/CreateRoomModal"
 
 export default function Profile(props) {
+  const { rooms, roomsId, fetchRooms, fetchBills } = useFirestore()
   const [error, setError] = useState("")
-  // const [rooms, setRooms] = useState([])
+  const [currentRooms, setCurrentRooms] = useState(rooms)
   // const [roomsId, setRoomsId] = useState([])
   // Auth & DB
   const { currentUser, logout } = useAuth()
-  const { rooms, roomsId, fetchRooms } = useFirestore()
 
   // Auth
   async function handleLogout() {
@@ -28,11 +28,13 @@ export default function Profile(props) {
   // Firesotre Calls
   const getRooms = async () => {
     console.log(currentUser.uid)
+    console.log(currentRooms)
     await fetchRooms(currentUser.uid)
   }
 
   useEffect(async () => {
     await getRooms()
+    await fetchBills()
   }, [])
 
   return (

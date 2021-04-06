@@ -9,10 +9,13 @@ const Room = (props) => {
   const [roomRef] = useState(db.collection("rooms").doc(roomId))
   console.log(roomId, roomName)
 
-  const { fetchRoom } = useFirestore()
+  const { fetchRoom, fetchBills } = useFirestore()
 
   useEffect(() => {
-    fetchRoom(roomId)
+    async function fetchData() {
+      await fetchRoom(roomId)
+      await fetchBills()
+    }
   }, [])
   return (
     <div>
