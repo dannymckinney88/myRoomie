@@ -51,7 +51,7 @@ export function FirestoreProvider({ children }) {
     }
   }
 
-  const fetchRoom = async (roomId) => {
+  const fetchRoom = async () => {
     db.collection("rooms")
       .doc(roomId)
       .get()
@@ -69,13 +69,12 @@ export function FirestoreProvider({ children }) {
   const fetchBills = async () => {
     if (bills.length < 1) {
       db.collection("rooms")
-        .doc(roomId)
+        .doc("ITm0basFkOZeknvZNxWO")
         .collection("Bills")
         .get()
         .then((snapshot) => {
           snapshot.forEach((doc) => {
             setBills((oldArray) => [...oldArray, doc.data()])
-            console.log(doc.id, "+>", doc.data())
           })
         })
     }
@@ -103,6 +102,7 @@ export function FirestoreProvider({ children }) {
     room,
     fetchRoom,
     fetchBills,
+    bills,
   }
 
   return (
