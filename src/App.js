@@ -1,6 +1,7 @@
-import Routes from "./config/routes";
-import "./App.css";
-import { AuthProvider } from "./contexts/AuthContext";
+import Routes from "./config/routes"
+import "./App.css"
+import { AuthProvider } from "./contexts/AuthContext"
+import { FirestoreProvider } from "./contexts/FirestoreContext"
 // import { db } from './firebase'
 
 // db.collection("test from module").add({
@@ -19,10 +20,12 @@ function App() {
   return (
     <div className="App">
       <AuthProvider>
-        <Routes /*currentUser={currentUser} storeUser={storeUser}*/ />
+        <FirestoreProvider>
+          <Routes /*currentUser={currentUser} storeUser={storeUser}*/ />
+        </FirestoreProvider>
       </AuthProvider>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

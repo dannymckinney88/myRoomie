@@ -1,9 +1,9 @@
-import firebase from "firebase";
-import "firebase/firestore";
-import "firebase/auth";
+import firebase from "firebase"
+import "firebase/firestore"
+import "firebase/auth"
 
-//require('dotenv').config()
-require("firebase/firestore");
+require("dotenv").config()
+require("firebase/firestore")
 
 // const firebaseConfig = {
 //   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -12,26 +12,28 @@ require("firebase/firestore");
 //   projectId: "myroomie-2f3c7",
 // };
 const firebaseConfig = {
-  apiKey: "AIzaSyBK9mB9z57qLTOKXS-T9EgZzSJhT0PigiI",
-  authDomain: "myroomie-2f3c7.firebaseapp.com",
-  databaseURL: "https://myroomie-2f3c7-default-rtdb.firebaseio.com",
-  projectId: "myroomie-2f3c7",
-};
+  apiKey: "AIzaSyDu4WwLguVbkc0QN52cKR4CVJgZGp-H5Ho",
+  authDomain: "my-roomie-91425.firebaseapp.com",
+  projectId: "my-roomie-91425",
+  storageBucket: "my-roomie-91425.appspot.com",
+  messagingSenderId: "149193244209",
+  appId: "1:149193244209:web:054e98ed6f14a6b0cbdf10",
+}
 
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig)
 
-export const auth = firebase.auth();
-export const db = firebase.firestore(); // NEW
+export const auth = firebase.auth()
+export const db = firebase.firestore() // NEW
 
 export const SignedinUser = () => {
   auth.onAuthStateChanged((user) => {
     if (user) {
-      let uid = user.uid;
-      console.log(uid);
+      let uid = user.uid
+      console.log(uid)
       // ...
     } else {
       // User is signed out
       // ...
     }
-  });
-};
+  })
+}
