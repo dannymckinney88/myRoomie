@@ -26,32 +26,62 @@ export default function ChoreContainer() {
   const [other, setOther] = useState([])
 
   console.log(chores)
-  //   const setCategories = () => {
-  //     chores.forEach((item) => {
-  //       console.log(item)
-  //       if (item.area === "Kitchen") {
-  //         setKitchen((oldArray) => [...oldArray, item])
-  //       } else if ((item.area = "Living Room")) {
-  //         setLivingRoom((oldArray) => [...oldArray, item])
-  //       } else if ((item.area = "Frontyard")) {
-  //         setFrontyard((oldArray) => [...oldArray, item])
-  //       } else if ((item.area = "Backyard")) {
-  //         setBackyard((oldArray) => [...oldArray, item])
-  //       } else if ((item.area = "Garage")) {
-  //         setGarage((oldArray) => [...oldArray, item])
-  //       } else if ((item.area = "Attic")) {
-  //         setAttic((oldArray) => [...oldArray, item])
-  //       } else if ((item.area = "Basement")) {
-  //         setBasement((oldArray) => [...oldArray, item])
-  //       } else if ((item.area = "Other")) {
-  //         setOther((oldArray) => [...oldArray, item])
-  //       }
-  //     })
-  //   }
 
-  //   useEffect(() => {
-  //     setCategories()
-  //   }, [])
+  const choresBox = options.map((item, index) => (
+    <>
+      {item == "Kitchen" && (
+        <ChoresBox area={item} chores={kitchen} key={index} />
+      )}
+      {item == "Living Room" && (
+        <ChoresBox area={item} chores={kitchen} key={index} />
+      )}
+      {item == "Frontyard" && (
+        <ChoresBox area={item} chores={kitchen} key={index} />
+      )}
+      {item == "Backyard" && (
+        <ChoresBox area={item} chores={kitchen} key={index} />
+      )}
+      {item == "Garage" && (
+        <ChoresBox area={item} chores={kitchen} key={index} />
+      )}
+      {item == "Attic" && (
+        <ChoresBox area={item} chores={kitchen} key={index} />
+      )}
+      {item == "Basement" && (
+        <ChoresBox area={item} chores={kitchen} key={index} />
+      )}
+      {item == "Other" && (
+        <ChoresBox area={item} chores={kitchen} key={index} />
+      )}
+    </>
+  ))
+
+  const setCategories = () => {
+    chores.forEach((item) => {
+      console.log(item)
+      if (item.area === "Kitchen") {
+        setKitchen((oldArray) => [...oldArray, item])
+      } else if (item.area === "Living Room") {
+        setLivingRoom((oldArray) => [...oldArray, item])
+      } else if (item.area === "Frontyard") {
+        setFrontyard((oldArray) => [...oldArray, item])
+      } else if (item.area === "Backyard") {
+        setBackyard((oldArray) => [...oldArray, item])
+      } else if (item.area === "Garage") {
+        setGarage((oldArray) => [...oldArray, item])
+      } else if (item.area === "Attic") {
+        setAttic((oldArray) => [...oldArray, item])
+      } else if (item.area === "Basement") {
+        setBasement((oldArray) => [...oldArray, item])
+      } else if (item.area === "Other") {
+        setOther((oldArray) => [...oldArray, item])
+      }
+    })
+  }
+
+  useEffect(() => {
+    setCategories()
+  }, [])
 
   //   console.log(
   //     kitchen,
@@ -80,7 +110,9 @@ export default function ChoreContainer() {
   return (
     <div>
       <AddChore options={options} />
-      {/* {allChores} */}
+      <div className="grid grid-cols-2 grid-rows-4 col-gap-4 row-gap-10">
+        {choresBox}
+      </div>
     </div>
   )
 }
