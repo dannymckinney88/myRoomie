@@ -13,6 +13,7 @@ export function FirestoreProvider({ children }) {
   const [roomsId, setRoomsId] = useState([])
   const [roomId, setRoomId] = useState()
   const [bills, setBills] = useState([])
+  const [chores, setChores] = useState([])
 
   // Room API
   // -------- Writes
@@ -39,7 +40,7 @@ export function FirestoreProvider({ children }) {
         users.push(user)
       }
     })
-    return roomRef
+    roomRef
       .doc(roomId)
       .collection("Bills")
       .add({
@@ -52,6 +53,23 @@ export function FirestoreProvider({ children }) {
       })
       .catch((error) => {
         console.log(error.message)
+      })
+  }
+
+  const addChore = async (area, task, user) => {
+    await roomRef
+      .doc(roomId)
+      .collection("Chores")
+      .add({
+        area: area,
+        task: task,
+        user: user,
+      })
+      .then((doc) => {
+        console.log("doc created with id -", doc.id)
+      })
+      .catch((error) => {
+        console.log(error)
       })
   }
 
@@ -101,6 +119,20 @@ export function FirestoreProvider({ children }) {
       })
   }
 
+  const fetchChores = async () => {
+    setChores([])
+    roomRef
+      .doc(roomId)
+      .collection("Chores")
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((chore) => {
+          setChores((oldArray) => [...oldArray, chore.data()])
+          console.log(chore.data())
+        })
+      })
+  }
+
   // Fetchs all bills of a spefic user
   // const fetchBills = async () => {
   //   db.collectionGroup("Bills")
@@ -125,6 +157,9 @@ export function FirestoreProvider({ children }) {
     fetchBills,
     bills,
     addBill,
+    addChore,
+    fetchChores,
+    chores,
   }
 
   return (
