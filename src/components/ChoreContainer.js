@@ -33,26 +33,22 @@ export default function ChoreContainer() {
         <ChoresBox area={item} chores={kitchen} key={index} />
       )}
       {item == "Living Room" && (
-        <ChoresBox area={item} chores={kitchen} key={index} />
+        <ChoresBox area={item} chores={livingRoom} key={index} />
       )}
       {item == "Frontyard" && (
-        <ChoresBox area={item} chores={kitchen} key={index} />
+        <ChoresBox area={item} chores={frontyard} key={index} />
       )}
       {item == "Backyard" && (
-        <ChoresBox area={item} chores={kitchen} key={index} />
+        <ChoresBox area={item} chores={backyard} key={index} />
       )}
       {item == "Garage" && (
-        <ChoresBox area={item} chores={kitchen} key={index} />
+        <ChoresBox area={item} chores={garage} key={index} />
       )}
-      {item == "Attic" && (
-        <ChoresBox area={item} chores={kitchen} key={index} />
-      )}
+      {item == "Attic" && <ChoresBox area={item} chores={attic} key={index} />}
       {item == "Basement" && (
-        <ChoresBox area={item} chores={kitchen} key={index} />
+        <ChoresBox area={item} chores={basement} key={index} />
       )}
-      {item == "Other" && (
-        <ChoresBox area={item} chores={kitchen} key={index} />
-      )}
+      {item == "Other" && <ChoresBox area={item} chores={other} key={index} />}
     </>
   ))
 
@@ -110,7 +106,7 @@ export default function ChoreContainer() {
   return (
     <div>
       <AddChore options={options} />
-      <div className="grid grid-cols-2 grid-rows-4 col-gap-4 row-gap-10">
+      <div className="grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-2 col-gap-4 row-gap-10 ">
         {choresBox}
       </div>
     </div>

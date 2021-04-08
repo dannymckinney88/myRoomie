@@ -1,8 +1,9 @@
 import React from "react"
+import Chore from "./Chore"
 
-export default function ChoresList() {
+export default function ChoresList(props) {
   return (
-    <table class="table-auto shadow-lg bg-white">
+    <table class="table-auto shadow-lg bg-white ">
       <thead>
         <tr>
           <th>Roomie</th>
@@ -10,7 +11,9 @@ export default function ChoresList() {
           <th>complete</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody>
+        <Chore chores={props.chores} />
+      </tbody>
     </table>
   )
 }
