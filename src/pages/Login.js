@@ -1,42 +1,37 @@
-import React, { useState } from "react";
-import { useAuth } from "../contexts/AuthContext";
-import Background from "../assets/login.jpg";
-import Nav1 from "../components/Nav1";
-import Alert from "../components/Alert";
+import React, { useState } from "react"
+import { useAuth } from "../contexts/AuthContext"
+import Background from "../assets/login.jpg"
+import Nav1 from "../components/Nav1"
+import Alert from "../components/Alert"
 
 const Login = (props) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const { login } = useAuth();
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const { login } = useAuth()
 
   const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
+    setEmail(e.target.value)
+  }
   const handlePassword = (e) => {
-    setPassword(e.target.value);
-  };
+    setPassword(e.target.value)
+  }
 
   async function handleSubmit(e) {
-    e.preventDefault();
-
+    e.preventDefault()
+    console.log(password)
     try {
-      setError("");
-      await login(email, password);
-      props.history.push("/profile");
+      setError("")
+      await login(email, password)
+      props.history.push("/profile")
     } catch {
-      setError("Failed to log in");
+      setError("Failed to log in")
     }
   }
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   FirestoreService.SignInUser(email, password);
-  //   props.history.push("/profile");
-  // };
 
   const heroImgStyle = {
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url(${Background})`,
-  };
+  }
   return (
     <>
       <div
@@ -99,7 +94,7 @@ const Login = (props) => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login
