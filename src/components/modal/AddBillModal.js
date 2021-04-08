@@ -8,6 +8,7 @@ export default function AddBillModal() {
   const [billAmount, setBillAmount] = useState()
   const [checkBoxOptions, setCheckBoxOptions] = useState([])
 
+
   const { room, addBill } = useFirestore()
 
   const handleBillName = (e) => {
@@ -23,6 +24,7 @@ export default function AddBillModal() {
     console.log(billName)
     console.log(billAmount, checkBoxOptions)
   }
+
 
   const clearSelectio = () => [setCheckBoxOptions({})]
 
