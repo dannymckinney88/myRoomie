@@ -1,56 +1,86 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from "react"
 import Chore from "./Chore"
-import Modal from "./Modal"
-
-
+import AddChore from "./modal/AddChore"
+import ChoresBox from "../components/ChoresBox"
+import { useFirestore } from "../contexts/FirestoreContext"
 
 export default function ChoreContainer() {
-    //usestate for modal display
-    const [show,setShow] = useState(false)
-    //setting state to blank text
-    const [task, setTask] = useState([
-        {
-            text:"",
-            isCompleted: false
-        }
-    ])
-    const showModal = (e) =>{setShow(true)} //shows modal
-    const closeModal = (e) =>{setShow(false)}//closes modal
+  const { chores } = useFirestore()
+  const [options] = useState([
+    "Kitchen",
+    "Living Room",
+    "Frontyard",
+    "Backyard",
+    "Garage",
+    "Attic",
+    "Basement",
+    "Other",
+  ])
+  const [kitchen, setKitchen] = useState([])
+  const [livingRoom, setLivingRoom] = useState([])
+  const [frontyard, setFrontyard] = useState([])
+  const [backyard, setBackyard] = useState([])
+  const [garage, setGarage] = useState([])
+  const [attic, setAttic] = useState([])
+  const [basement, setBasement] = useState([])
+  const [other, setOther] = useState([])
 
-    const addTask = text => {
-        const newTask = [...task, { text }];
-        setTask(newTask); 
-    };
+  console.log(chores)
+  //   const setCategories = () => {
+  //     chores.forEach((item) => {
+  //       console.log(item)
+  //       if (item.area === "Kitchen") {
+  //         setKitchen((oldArray) => [...oldArray, item])
+  //       } else if ((item.area = "Living Room")) {
+  //         setLivingRoom((oldArray) => [...oldArray, item])
+  //       } else if ((item.area = "Frontyard")) {
+  //         setFrontyard((oldArray) => [...oldArray, item])
+  //       } else if ((item.area = "Backyard")) {
+  //         setBackyard((oldArray) => [...oldArray, item])
+  //       } else if ((item.area = "Garage")) {
+  //         setGarage((oldArray) => [...oldArray, item])
+  //       } else if ((item.area = "Attic")) {
+  //         setAttic((oldArray) => [...oldArray, item])
+  //       } else if ((item.area = "Basement")) {
+  //         setBasement((oldArray) => [...oldArray, item])
+  //       } else if ((item.area = "Other")) {
+  //         setOther((oldArray) => [...oldArray, item])
+  //       }
+  //     })
+  //   }
 
-    function TaskForm({addTask}) {
-        const [value, setValue] = useState("");
-        const handleSubmit = e => {
-        e.preventDefault();
-        if (!value) return;
-        addTask(value);
-        setValue("");
-        };
-        return (
-        <form onSubmit={handleSubmit}>
-            <label>Enter Chore</label>
-            <input
-            type="text"
-            className="input"
-            value={value}
-            onChange={e => setValue(e.target.value)}
-            />
-        </form>
-        );
-    }
+  //   useEffect(() => {
+  //     setCategories()
+  //   }, [])
 
-    return (
-        <div>
-            <Chore/>
-            <button onClick={e => showModal()}>
-                show modal
-            </button>
-            <Modal showModal={show} closeModal={closeModal}>
-            </Modal>
-        </div>
-    )
+  //   console.log(
+  //     kitchen,
+  //     livingRoom,
+  //     frontyard,
+  //     backyard,
+  //     garage,
+  //     attic,
+  //     basement,
+  //     other
+  //   )
+
+  //   const allChores = chores.map((chore) => (
+  //     <>
+  //       {chore.area == "Kitchen" && <ChoresBox choreInfo={chore} />}
+  //       {chore.area == "Living Room" && <ChoresBox choreInfo={chore} />}
+  //       {chore.area == "Frontyard" && <ChoresBox choreInfo={chore} />}
+  //       {chore.area == "Backyard" && <ChoresBox choreInfo={chore} />}
+  //       {chore.area == "Garage" && <ChoresBox choreInfo={chore} />}
+  //       {chore.area == "Attic" && <ChoresBox choreInfo={chore} />}
+  //       {chore.area == "Basement" && <ChoresBox choreInfo={chore} />}
+  //       {chore.area == "Other" && <ChoresBox choreInfo={chore} />}
+  //     </>
+  //   ))
+
+  return (
+    <div>
+      <AddChore options={options} />
+      {/* {allChores} */}
+    </div>
+  )
 }

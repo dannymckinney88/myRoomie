@@ -20,7 +20,9 @@ export default function UserInput(props) {
   ))
   return (
     <div>
-      <label for="cars">Choose Roomie</label>
+      <label for="cars" for="html">
+        Choose Roomie
+      </label>
       <select onChange={handleChange} value={selectValue}>
         {options}
         <option value="Tony">tony</option>
