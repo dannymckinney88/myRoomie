@@ -7,8 +7,10 @@ import CreateRoomModal from "../components/modal/CreateRoomModal"
 export default function Profile(props) {
   const { rooms, roomsId, fetchRooms, fetchBills, bills } = useFirestore()
   const [error, setError] = useState("")
+
   const [currentRooms] = useState(rooms)
   // const [roomsId, setRoomsId] = useState([])
+
   // Auth & DB
   const { currentUser, logout } = useAuth()
 
@@ -39,7 +41,7 @@ export default function Profile(props) {
     <div>
       <h1>Profile</h1>
       <div>
-        {rooms[0] ? <RoomButtons rooms={rooms} roomIds={roomsId} /> : "loading"}
+        {rooms[0] ? <RoomButtons rooms={rooms} roomIds={roomsId} /> : { error }}
       </div>
       <CreateRoomModal />
       <button className="bg-black text-white" onClick={handleLogout}>

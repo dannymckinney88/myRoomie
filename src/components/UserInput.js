@@ -6,9 +6,7 @@ export default function UserInput(props) {
   const [selectValue, setSelectValue] = useState(props.user[0])
 
   const handleName = (e) => {
-    console.log("d")
     setName(e.currentTarget.value)
-    console.log(name)
   }
 
   const handleChange = (e) => {

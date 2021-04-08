@@ -7,9 +7,11 @@ import { useFirestore } from "../contexts/FirestoreContext"
 const Room = (props) => {
   const [roomId] = useState(props.match.params.id)
   const [roomName] = useState(props.match.params.name)
+
   const [bills, setBills] = useState([])
 
   const { fetchRoom, fetchChores } = useFirestore()
+
 
   const fetchBills = () => {
     console.log(roomId)
@@ -27,12 +29,14 @@ const Room = (props) => {
   }
 
   useEffect(() => {
+
     async function run() {
       await fetchRoom(roomId)
       await fetchBills()
       await fetchChores()
     }
     run()
+
   }, [])
   return (
     <div>
