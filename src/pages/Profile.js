@@ -31,17 +31,15 @@ export default function Profile(props) {
     await fetchRooms(currentUser.uid)
   }
 
-  useEffect(async () => {
-    await getRooms()
-    // await fetchBills()
-    // console.log(bills)
+  useEffect(() => {
+    getRooms()
   }, [])
 
   return (
     <div>
       <h1>Profile</h1>
       <div>
-        {rooms[0] ? <RoomButtons rooms={rooms} roomIds={roomsId} /> : { error }}
+        {rooms[0] ? <RoomButtons rooms={rooms} roomIds={roomsId} /> : "HELLO"}
       </div>
       <CreateRoomModal />
       <button className="bg-black text-white" onClick={handleLogout}>
