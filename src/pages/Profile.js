@@ -3,6 +3,7 @@ import { useFirestore } from "../contexts/FirestoreContext"
 import { useAuth } from "../contexts/AuthContext"
 import RoomButtons from "../components/RoomButtons"
 import CreateRoomModal from "../components/modal/CreateRoomModal"
+import ProfileNav from "../components/nav/ProfileNav"
 
 export default function Profile(props) {
   const { rooms, roomsId, fetchRooms, fetchBills, bills } = useFirestore()
@@ -36,12 +37,15 @@ export default function Profile(props) {
   }, [])
 
   return (
-    <div>
-      <h1>Profile</h1>
+    <div className=" font-serif bg-green-300 h-screen">
+      <ProfileNav />
+      <div>
+        <h1>Profile</h1>
+        <CreateRoomModal />
+      </div>
       <div>
         {rooms[0] ? <RoomButtons rooms={rooms} roomIds={roomsId} /> : "HELLO"}
       </div>
-      <CreateRoomModal />
       <button className="bg-black text-white" onClick={handleLogout}>
         Sign Out
       </button>

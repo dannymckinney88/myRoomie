@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useAuth } from "../contexts/AuthContext"
 import Background from "../assets/login.jpg"
-import Nav1 from "../components/Nav1"
+import Nav1 from "../components/nav/Nav1"
 import Alert from "../components/Alert"
 
 const Login = (props) => {

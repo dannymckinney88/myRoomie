@@ -1,37 +1,37 @@
-import React, { useState } from "react";
-import * as FirestoreService from "../firebase";
-import Background from "../assets/signup-bg.jpg";
-import Nav1 from "../components/Nav1";
-import { useAuth } from "../contexts/AuthContext";
-import Alert from "../components/Alert.js";
+import React, { useState } from "react"
+import * as FirestoreService from "../firebase"
+import Background from "../assets/signup-bg.jpg"
+import Nav1 from "../components/nav/Nav1"
+import { useAuth } from "../contexts/AuthContext"
+import Alert from "../components/Alert.js"
 
 const Signup = (props) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const { signup } = useAuth();
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const { signup } = useAuth()
 
   const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
+    setEmail(e.target.value)
+  }
   const handlePassword = (e) => {
-    setPassword(e.target.value);
-  };
+    setPassword(e.target.value)
+  }
 
   async function handleSubmit(e) {
-    e.preventDefault();
+    e.preventDefault()
 
     // if (password !== passwordConfirmRef.current.value) {
     //   return setError("Passwords do not match")
     // }
 
     try {
-      setError("");
+      setError("")
       // setLoading(true)
-      await signup(email, password);
-      props.history.push("/");
+      await signup(email, password)
+      props.history.push("/")
     } catch {
-      setError("Failed to create an account");
+      setError("Failed to create an account")
     }
 
     // setLoading(false);
@@ -39,7 +39,7 @@ const Signup = (props) => {
 
   const heroImgStyle = {
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url(${Background})`,
-  };
+  }
 
   return (
     <div
@@ -99,7 +99,7 @@ const Signup = (props) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Signup;
+export default Signup
