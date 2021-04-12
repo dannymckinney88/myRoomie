@@ -25,7 +25,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 export default (props) => (
   <Switch>
     <Route exact path="/" component={Home} />
-    <Route path="/signup" component={Signup} />
+    <Route path="/signup/:email" component={Signup} />
     <Route path="/login" component={Login} />
     <PrivateRoute path="/profile" component={Profile} />
     <PrivateRoute path="/room/:id/:name" component={Room} />

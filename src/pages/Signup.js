@@ -53,12 +53,29 @@ const Signup = (props) => {
     >
       <Nav1 />
       <div className="w-full mx-auto mt-24">
-        <div className="text-3xl font-bold text-white mt-2 text-center">
-          Signup
-        </div>
         <div className="max-w-md mx-auto mt-4 bg-white p-8 border border-gray-300">
           {error && <Alert error={error} />}
+          <div className="text-3xl font-bold text-black mb-8 text-center">
+            <h1>Join myRoomie</h1>
+            <h2>Signup</h2>
+          </div>
           <form onSubmit={handleSubmit} action="" className="space-y-6">
+            <div>
+              <label
+                htmlFor=""
+                className="text-small font-bold text-gray-600 block"
+              >
+                Username
+              </label>
+              <input
+                className="w-full p-2 border border-gray-300 rounded mt-1"
+                onChange={handlePassword}
+                type="password"
+                id="password"
+                name="password"
+                value={password}
+              />
+            </div>
             <div>
               <label
                 htmlFor=""
