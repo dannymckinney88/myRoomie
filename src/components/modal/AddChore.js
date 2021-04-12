@@ -99,7 +99,10 @@ export default function AddChore(props) {
           <button
             type="submit"
             className="bg-white text-black rounded-full py-3 px-6 mt-6 "
-            onClick={handleSubmit}
+            onClick={(e) => {
+              handleSubmit(e)
+              modal.current.close()
+            }}
           >
             Add Chore
           </button>

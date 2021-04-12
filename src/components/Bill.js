@@ -2,17 +2,6 @@ import React, { useState, useEffect } from "react"
 import BillItems from "./BillItems"
 
 export default function Bill(props) {
-  const [bills] = useState([
-    {
-      name: "rent",
-      paidBy: [
-        { name: "Joey", paid: true },
-        { name: "Antonio", paid: false },
-        { name: "Tony", paid: false },
-      ],
-      amount: 1300,
-    },
-  ])
   console.log(props.bill.totalAmount)
 
   return (

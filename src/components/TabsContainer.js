@@ -14,7 +14,7 @@ export default function Tab(props) {
         }}
       >
         <Tabs.Tab id="Dashboard" title="Dashboard">
-          <Dashboard />
+          <Dashboard roomId={props.roomId} roomName={props.roomName} />
         </Tabs.Tab>
         <Tabs.Tab id="choes" title="chores">
           <ChoreContainer roomId={props.roomId} />

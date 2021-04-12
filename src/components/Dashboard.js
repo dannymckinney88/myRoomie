@@ -1,31 +1,23 @@
-import React, {useState} from "react";
-import Modal from './Modal'
+import React, { useState } from "react"
+import AddUser from "./modal/AddUser"
 
-const Dashboard = () => {
-const [show,setShow]=useState(false)
+const Dashboard = (props) => {
+  const [show, setShow] = useState(false)
 
-const showModal = (e) =>{
+  const showModal = (e) => {
     setShow(true)
-}
+  }
 
-const closeModal = (e) =>{
-  setShow(false)
-}
+  const closeModal = (e) => {
+    setShow(false)
+  }
 
   return (
     <>
       <div>DashBoard</div>
-        <button onClick={e => showModal()}>
-          show modal
-        </button>
-      <Modal showModal={show} closeModal={closeModal} >
-        <label>hello</label>
-        <input type="text" />
-        <label>moto</label>
-        <input type="text" />
-      </Modal>
+      <AddUser roomId={props.roomId} roomName={props.roomName} />
     </>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard

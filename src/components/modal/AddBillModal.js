@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react"
 import Modal from "./Modal"
-import { Redirect } from "react-router-dom"
 import { useFirestore } from "../../contexts/FirestoreContext"
 import { db } from "../../firebase"
 
@@ -11,7 +10,7 @@ export default function AddBillModal(props) {
   const [checkBoxOptions, setCheckBoxOptions] = useState([])
   const [redirect, setRedirect] = useState(false)
 
-  const { room, addBill } = useFirestore()
+  const { room } = useFirestore()
 
   const handleBillName = (e) => {
     setBillName(e.target.value)
@@ -41,10 +40,6 @@ export default function AddBillModal(props) {
       .then((doc) => {
         console.log(doc.data)
       })
-    // (billName, billAmount, checkBoxOptions).then((bill) => {
-    //   console.log(bill.data())
-    // })
-
     setRedirect(true)
     console.log(redirect)
     console.log(billName)
@@ -74,7 +69,6 @@ export default function AddBillModal(props) {
 
   return (
     <>
-      {redirect && <Redirect to={`/room/${props.roomId}/${props.roomName}`} />}
       <div>
         <div>
           <button
@@ -160,7 +154,7 @@ export default function AddBillModal(props) {
               className="bg-white text-black rounded-full py-3 px-6 mt-6 "
               onClick={(e) => {
                 handleBill(e)
-                setRedirect(true)
+                modal.current.close()
               }}
             >
               Add Room
