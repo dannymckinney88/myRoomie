@@ -3,17 +3,24 @@ import Nav1 from "../components/nav/Nav1"
 import { useAuth } from "../contexts/AuthContext"
 import Alert from "../components/Alert.js"
 import Background from "../assets/signup-bg.jpg"
-import { db } from "../firebase"
+import { useFirestore } from "../contexts/FirestoreContext"
+
+// import { db } from "../firebase"
 
 const Signup = (props) => {
-  const [email, setEmail] = useState("")
+  const [email, setEmail] = useState(props.match.params.email)
+  const [userName, setUserName] = useState("")
   const [password, setPassword] = useState("")
   const [passwordConfirm, setPasswordConfirm] = useState("")
   const [error, setError] = useState("")
-  const { signup } = useAuth()
+  const { signup, currentUser } = useAuth()
+  const { addUser } = useFirestore()
 
   const handleEmail = (e) => {
     setEmail(e.target.value)
+  }
+  const handleUserName = (e) => {
+    setUserName(e.target.value)
   }
   const handlePassword = (e) => {
     setPassword(e.target.value)
@@ -33,13 +40,17 @@ const Signup = (props) => {
     try {
       setError("")
       // setLoading(true)
-      await signup(email, password)
-      props.history.push("/")
+      console.log(email, password)
+
+      await signup(email, password).then((cred) => {
+        return addUser(userName, email, cred.user.uid).then(() => {
+          props.history.push("/profile")
+        })
+      })
+      console.log(currentUser.uid)
     } catch {
       setError("Failed to create an account")
     }
-
-    // setLoading(false);
   }
 
   const heroImgStyle = {
@@ -69,11 +80,10 @@ const Signup = (props) => {
               </label>
               <input
                 className="w-full p-2 border border-gray-300 rounded mt-1"
-                onChange={handlePassword}
-                type="password"
-                id="password"
-                name="password"
-                value={password}
+                onChange={handleUserName}
+                type="text"
+                name="userName"
+                value={userName}
               />
             </div>
             <div>
@@ -87,7 +97,6 @@ const Signup = (props) => {
                 className="w-full p-2 border border-gray-300 rounded mt-1"
                 onChange={handleEmail}
                 type="email"
-                id="email"
                 name="email"
                 value={email}
               />
@@ -103,7 +112,6 @@ const Signup = (props) => {
                 className="w-full p-2 border border-gray-300 rounded mt-1"
                 onChange={handlePassword}
                 type="password"
-                id="password"
                 name="password"
                 value={password}
               />
@@ -119,14 +127,13 @@ const Signup = (props) => {
                 className="w-full p-2 border border-gray-300 rounded mt-1"
                 onChange={handlePasswordConfirm}
                 type="password"
-                id="password"
                 name="password"
                 value={passwordConfirm}
               />
             </div>
             <div>
               <button
-                type="button"
+                type="submit"
                 onClick={handleSubmit}
                 className="w-full py-2 px4 bg-blue-600 hover:bg-blue-700 rounded-md text-white text-small "
               >

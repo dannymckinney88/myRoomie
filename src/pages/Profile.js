@@ -6,26 +6,12 @@ import CreateRoomModal from "../components/modal/CreateRoomModal"
 import ProfileNav from "../components/nav/ProfileNav"
 
 export default function Profile(props) {
-  const { rooms, roomsId, fetchRooms, fetchBills, bills } = useFirestore()
-  const [error, setError] = useState("")
-
-  const [currentRooms] = useState(rooms)
-  // const [roomsId, setRoomsId] = useState([])
+  const { rooms, roomsId, fetchRooms, addUser, bills } = useFirestore()
 
   // Auth & DB
   const { currentUser, logout } = useAuth()
 
   // Auth
-  async function handleLogout() {
-    setError("")
-
-    try {
-      await logout()
-      props.history.push("/login")
-    } catch {
-      setError("Failed to log out")
-    }
-  }
 
   // Firesotre Calls
   const getRooms = async () => {

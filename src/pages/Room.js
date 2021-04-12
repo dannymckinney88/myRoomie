@@ -11,7 +11,7 @@ const Room = (props) => {
 
   const [bills, setBills] = useState([])
 
-  const { fetchRoom, fetchChores } = useFirestore()
+  const { fetchRoom, fetchChores, addUser } = useFirestore()
 
   const fetchBills = () => {
     console.log(roomId)
@@ -43,7 +43,7 @@ const Room = (props) => {
         Home{" "}
       </Link>
       <h1>Welcome to {roomName}</h1>
-      <TabsContainer roomId={roomId} bills={bills} />
+      <TabsContainer roomId={roomId} roomName={roomName} bills={bills} />
     </div>
   )
 }
