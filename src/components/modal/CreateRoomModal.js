@@ -70,14 +70,14 @@ export default function CreateRoomModal(props) {
               <div>
                 <label
                   htmlFor=""
-                  className="text-small font-bold text-gray-600 block"
+                  className="text-small font-bold text-white block my-1"
                 >
                   Room Name
                 </label>
                 <input
                   onChange={handleRoomName}
                   value={roomName}
-                  className="w-full p-2 border border-gray-300 rounded mt-1"
+                  className="w-full p-2 border border-gray-300 rounded mb-3"
                   type="text"
                   id="room-name"
                   name="room-name"
@@ -86,20 +86,25 @@ export default function CreateRoomModal(props) {
               <div>
                 <label
                   htmlFor=""
-                  className="text-small font-bold text-gray-600 block"
+                  className="text-small font-bold text-white block my-1"
                 >
                   Your name
                 </label>
                 <input
                   onChange={handleUserName}
                   value={userName}
-                  className="w-full p-2 border border-gray-300 rounded mt-1"
+                  className="w-full p-2 border border-gray-300 rounded mt-1 mb-3"
                   type="text"
                   id="room-name"
                   name="room-name"
                 />
               </div>
-              <button type="submit">Add Room</button>
+              <button
+                type="submit"
+                className="bg-white text-black rounded-full py-3 px-6 mt-6 "
+              >
+                Add Room
+              </button>
             </form>
           </Modal>
         </div>

@@ -39,20 +39,26 @@ export default function AddChore(props) {
   return (
     <div>
       <div>
-        <button onClick={() => modal.current.open()}> Open me</button>
+        <button
+          className="bg-white text-black rounded-full py-3 px-6 mt-6 "
+          onClick={() => modal.current.open()}
+        >
+          {" "}
+          Open me
+        </button>
       </div>
       <Modal ref={modal}>
         <form>
           <div>
             <label
               htmlFor="chore"
-              className="text-small font-bold text-white block py-1 pt-1"
+              className="text-small font-bold text-white block my-1"
             >
               Who's doin the cleanin
             </label>
             <input
               onChange={handleName}
-              className="w-full p-2 border border-gray-300 rounded mt-1"
+              className="w-full p-2 border border-gray-300 rounded mb-3"
               type="text"
               id="bill"
               name="bill"
@@ -61,13 +67,13 @@ export default function AddChore(props) {
           <div>
             <label
               htmlFor="options"
-              className="text-small font-bold text-white block py-1 pt-1"
+              className="text-small font-bold text-white block my-1"
             >
               Options
             </label>
             <select
               onChange={handleOption}
-              className="w-full p-2 border border-black-300 rounded mt-1"
+              className="w-full p-2 border border-black-300 rounded mb-3"
               name="chores"
               value={option}
             >
@@ -77,14 +83,14 @@ export default function AddChore(props) {
           <div>
             <label
               htmlFor="chore"
-              className="text-small font-bold text-white block py-1 pt-1"
+              className="text-small font-bold text-white block my-1"
             >
               Task
             </label>
             <input
               onChange={handTask}
               value={task}
-              className="w-full p-2 border border-gray-300 rounded mt-1"
+              className="w-full p-2 border border-gray-300 rounded mb-3"
               type="text"
               id="bill"
               name="bill"
@@ -92,7 +98,7 @@ export default function AddChore(props) {
           </div>
           <button
             type="submit"
-            className="py-1 text-white pt-4"
+            className="bg-white text-black rounded-full py-3 px-6 mt-6 "
             onClick={handleSubmit}
           >
             Add Chore

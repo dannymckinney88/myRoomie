@@ -44,7 +44,7 @@ export function Modal({ children, fade = false, defaultOpened = false }, ref) {
         <div className="modal-overlay" onClick={close} />
         <span
           role="button"
-          className="modal-close"
+          className="modal-close "
           aria-label="close"
           onClick={close}
         >

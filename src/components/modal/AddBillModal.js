@@ -8,7 +8,6 @@ export default function AddBillModal() {
   const [billAmount, setBillAmount] = useState()
   const [checkBoxOptions, setCheckBoxOptions] = useState([])
 
-
   const { room, addBill } = useFirestore()
 
   const handleBillName = (e) => {
@@ -24,7 +23,6 @@ export default function AddBillModal() {
     console.log(billName)
     console.log(billAmount, checkBoxOptions)
   }
-
 
   const clearSelectio = () => [setCheckBoxOptions({})]
 
@@ -50,21 +48,27 @@ export default function AddBillModal() {
   return (
     <div>
       <div>
-        <button onClick={() => modal.current.open()}> Open me</button>
+        <button
+          className="bg-white text-black rounded-full py-3 px-6 mt-6 "
+          onClick={() => modal.current.open()}
+        >
+          {" "}
+          Open me
+        </button>
       </div>
       <Modal ref={modal}>
         <form onSubmit={handleBill}>
           <div>
             <label
               htmlFor="bill"
-              className="text-small font-bold text-gray-600 block py-1 pt-1"
+              className="text-small font-bold text-white block my-1"
             >
               Bill
             </label>
             <input
               onChange={handleBillName}
               value={billName}
-              className="w-full p-2 border border-gray-300 rounded mt-1"
+              className="w-full p-2 border border-gray-300 rounded mb-3"
               type="text"
               id="bill"
               name="bill"
@@ -73,14 +77,14 @@ export default function AddBillModal() {
           <div>
             <label
               htmlFor="amount"
-              className="text-small font-bold text-gray-600 block py-1 pt-4"
+              className="text-small font-bold text-white block my-1"
             >
               Amount $
             </label>
             <input
               onChange={handleBillAmount}
               value={billAmount}
-              className="w-full p-2 border border-gray-300 rounded mt-1 "
+              className="w-full p-2 border border-gray-300 rounded mt-1 mb-3"
               type="text"
               id="amount"
               name="amount"
@@ -119,7 +123,11 @@ export default function AddBillModal() {
                 ))
               : ""}
           </div>
-          <button type="submit" className="py-1 pt-4" onClick={handleBill}>
+          <button
+            type="submit"
+            className="bg-white text-black rounded-full py-3 px-6 mt-6 "
+            onClick={handleBill}
+          >
             Add Room
           </button>
         </form>
