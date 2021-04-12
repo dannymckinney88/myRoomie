@@ -3,9 +3,11 @@ import Chore from "./Chore"
 import AddChore from "./modal/AddChore"
 import ChoresBox from "../components/ChoresBox"
 import { useFirestore } from "../contexts/FirestoreContext"
+import { db } from "../firebase"
 
-export default function ChoreContainer() {
-  const { chores } = useFirestore()
+export default function ChoreContainer(props) {
+  // const { chores } = useFirestore()
+  const [chores, setChores] = useState([])
   const [options] = useState([
     "Kitchen",
     "Living Room",
@@ -25,40 +27,67 @@ export default function ChoreContainer() {
   const [basement, setBasement] = useState([])
   const [other, setOther] = useState([])
 
-  console.log(chores)
-
   const choresBox = options.map((item, index) => (
     <>
-      {item == "Kitchen" && (
+      {item === "Kitchen" && (
         <ChoresBox area={item} chores={kitchen} key={index} />
       )}
-      {item == "Living Room" && (
+      {item === "Living Room" && (
         <ChoresBox area={item} chores={livingRoom} key={index} />
       )}
-      {item == "Frontyard" && (
+      {item === "Frontyard" && (
         <ChoresBox area={item} chores={frontyard} key={index} />
       )}
-      {item == "Backyard" && (
+      {item === "Backyard" && (
         <ChoresBox area={item} chores={backyard} key={index} />
       )}
-      {item == "Garage" && (
+      {item === "Garage" && (
         <ChoresBox area={item} chores={garage} key={index} />
       )}
-      {item == "Attic" && <ChoresBox area={item} chores={attic} key={index} />}
-      {item == "Basement" && (
+      {item === "Attic" && <ChoresBox area={item} chores={attic} key={index} />}
+      {item === "Basement" && (
         <ChoresBox area={item} chores={basement} key={index} />
       )}
-      {item == "Other" && <ChoresBox area={item} chores={other} key={index} />}
+      {item === "Other" && <ChoresBox area={item} chores={other} key={index} />}
     </>
   ))
 
+  useEffect(() => {
+    setChores([])
+    const unsubscribe = db
+      .collection("rooms")
+      .doc(props.roomId)
+      .collection("Chores")
+      .onSnapshot((snapshot) => {
+        const list = []
+        console.log(snapshot.docs)
+        snapshot.docs.forEach((doc) => {
+          list.push(doc.data())
+        })
+        console.log(list)
+        setChores(list)
+      })
+
+    console.log(chores)
+    return () => unsubscribe()
+  }, [])
+
   const setCategories = () => {
+    setKitchen([])
+    setLivingRoom([])
+    setFrontyard([])
+    setBackyard([])
+    setAttic([])
+    setBasement([])
+    setOther([])
+    console.log(chores)
     chores.forEach((item) => {
       console.log(item)
       if (item.area === "Kitchen") {
         setKitchen((oldArray) => [...oldArray, item])
       } else if (item.area === "Living Room") {
         setLivingRoom((oldArray) => [...oldArray, item])
+        console.log(livingRoom)
       } else if (item.area === "Frontyard") {
         setFrontyard((oldArray) => [...oldArray, item])
       } else if (item.area === "Backyard") {
@@ -77,31 +106,7 @@ export default function ChoreContainer() {
 
   useEffect(() => {
     setCategories()
-  }, [])
-
-  //   console.log(
-  //     kitchen,
-  //     livingRoom,
-  //     frontyard,
-  //     backyard,
-  //     garage,
-  //     attic,
-  //     basement,
-  //     other
-  //   )
-
-  //   const allChores = chores.map((chore) => (
-  //     <>
-  //       {chore.area == "Kitchen" && <ChoresBox choreInfo={chore} />}
-  //       {chore.area == "Living Room" && <ChoresBox choreInfo={chore} />}
-  //       {chore.area == "Frontyard" && <ChoresBox choreInfo={chore} />}
-  //       {chore.area == "Backyard" && <ChoresBox choreInfo={chore} />}
-  //       {chore.area == "Garage" && <ChoresBox choreInfo={chore} />}
-  //       {chore.area == "Attic" && <ChoresBox choreInfo={chore} />}
-  //       {chore.area == "Basement" && <ChoresBox choreInfo={chore} />}
-  //       {chore.area == "Other" && <ChoresBox choreInfo={chore} />}
-  //     </>
-  //   ))
+  }, [chores])
 
   return (
     <div>

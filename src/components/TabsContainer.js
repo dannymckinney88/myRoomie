@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Tabs } from "@feuer/react-tabs"
 import Bills from "./Bills"
-import Chores from "./Chores"
+import ChoreContainer from "./ChoreContainer"
 import Dashboard from "./Dashboard"
 
 export default function Tab(props) {
@@ -17,10 +17,14 @@ export default function Tab(props) {
           <Dashboard />
         </Tabs.Tab>
         <Tabs.Tab id="choes" title="chores">
-          <Chores />
+          <ChoreContainer roomId={props.roomId} />
         </Tabs.Tab>
         <Tabs.Tab id="bills" title="bills">
-          <Bills bills={props.bills} />
+          <Bills
+            bills={props.bills}
+            roomId={props.roomId}
+            roomName={props.roomName}
+          />
         </Tabs.Tab>
       </Tabs>
     </div>

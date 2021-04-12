@@ -3,17 +3,24 @@ import Chore from "./Chore"
 
 export default function ChoresList(props) {
   return (
-    <table class="table-auto shadow-lg bg-white ">
-      <thead>
-        <tr>
-          <th>Roomie</th>
-          <th>task</th>
-          <th>complete</th>
-        </tr>
-      </thead>
-      <tbody>
-        <Chore chores={props.chores} />
-      </tbody>
-    </table>
+    <>
+      {props.chores.length >= 1 && (
+        <>
+          <h1 className="text-left pt-12">{props.chores[0].area}</h1>
+          <table class="table-fixed shadow-lg bg-white w-4/6">
+            <thead>
+              <tr>
+                <th className="w-1/4">Roomie</th>
+                <th className="w-1/2">task</th>
+                <th className="w-1/4">complete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <Chore chores={props.chores} />
+            </tbody>
+          </table>
+        </>
+      )}
+    </>
   )
 }
