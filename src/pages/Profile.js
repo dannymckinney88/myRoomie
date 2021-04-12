@@ -41,15 +41,11 @@ export default function Profile(props) {
       <ProfileNav />
       <div>
         <h1>Profile</h1>
-        <CreateRoomModal />
       </div>
       <div>
         {rooms[0] ? <RoomButtons rooms={rooms} roomIds={roomsId} /> : "HELLO"}
+        <CreateRoomModal />
       </div>
-      <button className="bg-black text-white" onClick={handleLogout}>
-        Sign Out
-      </button>
-      {/* <button onClick={handleAddRoom}>Add Room</button> */}
     </div>
   )
 }

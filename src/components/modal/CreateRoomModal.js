@@ -57,7 +57,13 @@ export default function CreateRoomModal(props) {
       ) : (
         <div>
           <div>
-            <button onClick={() => modal.current.open()}> Open me</button>
+            <button
+              className="bg-white text-black rounded-full py-3 px-6"
+              onClick={() => modal.current.open()}
+            >
+              {" "}
+              Add Room
+            </button>
           </div>
           <Modal ref={modal}>
             <form onSubmit={handleAddRoom}>
