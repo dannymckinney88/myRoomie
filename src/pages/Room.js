@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import TabsContainer from "../components/TabsContainer"
+import ProfileNav from "../components/nav/ProfileNav"
 import { Link } from "react-router-dom"
 import { db } from "../firebase"
 import { useFirestore } from "../contexts/FirestoreContext"
@@ -11,7 +12,6 @@ const Room = (props) => {
   const [bills, setBills] = useState([])
 
   const { fetchRoom, fetchChores } = useFirestore()
-
 
   const fetchBills = () => {
     console.log(roomId)
@@ -29,17 +29,16 @@ const Room = (props) => {
   }
 
   useEffect(() => {
-
     async function run() {
       await fetchRoom(roomId)
       await fetchBills()
       await fetchChores()
     }
     run()
-
   }, [])
   return (
     <div>
+      <ProfileNav />
       <Link className="px-3" to="/profile">
         Home{" "}
       </Link>

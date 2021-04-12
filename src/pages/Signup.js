@@ -1,13 +1,14 @@
 import React, { useState } from "react"
-import * as FirestoreService from "../firebase"
-import Background from "../assets/signup-bg.jpg"
 import Nav1 from "../components/nav/Nav1"
 import { useAuth } from "../contexts/AuthContext"
 import Alert from "../components/Alert.js"
+import Background from "../assets/signup-bg.jpg"
+import { db } from "../firebase"
 
 const Signup = (props) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [passwordConfirm, setPasswordConfirm] = useState("")
   const [error, setError] = useState("")
   const { signup } = useAuth()
 
@@ -18,12 +19,16 @@ const Signup = (props) => {
     setPassword(e.target.value)
   }
 
+  const handlePasswordConfirm = (e) => {
+    setPasswordConfirm(e.target.value)
+  }
+
   async function handleSubmit(e) {
     e.preventDefault()
 
-    // if (password !== passwordConfirmRef.current.value) {
-    //   return setError("Passwords do not match")
-    // }
+    if (password !== passwordConfirm) {
+      return setError("Passwords do not match")
+    }
 
     try {
       setError("")
@@ -84,6 +89,22 @@ const Signup = (props) => {
                 id="password"
                 name="password"
                 value={password}
+              />
+            </div>
+            <div>
+              <label
+                htmlFor=""
+                className="text-small font-bold text-gray-600 block"
+              >
+                Re-Enter Password
+              </label>
+              <input
+                className="w-full p-2 border border-gray-300 rounded mt-1"
+                onChange={handlePasswordConfirm}
+                type="password"
+                id="password"
+                name="password"
+                value={passwordConfirm}
               />
             </div>
             <div>

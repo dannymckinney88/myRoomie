@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import { ReactComponent as Logo } from "../../assets/myRoomie-logo/vector/default-monochrome.svg"
 import { useAuth } from "../../contexts/AuthContext"
@@ -13,8 +13,9 @@ export default function ProfileNav(props) {
     } catch {}
   }
   return (
-    <nav class="group   hover:bg-white hover:shadow-lg hover:border-transparent h-16 p-2 ...">
-      <Logo class="w-20 ml-3 pt-4" />
+    <nav class="group flex justify-between  hover:bg-white hover:shadow-lg hover:border-transparent h-16 p-2">
+      <h1></h1>
+      <Logo class="w-20  pt-4" />
       <div className="flex justify-end content-center">
         <button onClick={handleLogout}>Sign out</button>
       </div>
