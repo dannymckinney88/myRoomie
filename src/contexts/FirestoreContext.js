@@ -17,7 +17,16 @@ export function FirestoreProvider({ children }) {
 
   // Room API
   // -------- Writes
+
   const roomRef = db.collection("rooms")
+
+  const addUser = (userName, email, uid) => {
+    return db.collection("users").doc(uid).set({
+      userName: userName,
+      email: email,
+      uid: uid,
+    })
+  }
   const addRoom = async (roonnName, uid, userName) => {
     return roomRef.add({
       roomName: roonnName,
@@ -32,7 +41,7 @@ export function FirestoreProvider({ children }) {
     })
   }
 
-  const addBill = async (name, amount, usersArray) => {
+  const addBill = (name, amount, usersArray) => {
     const users = []
     usersArray.forEach((user) => {
       console.log(user)
@@ -40,20 +49,11 @@ export function FirestoreProvider({ children }) {
         users.push(user)
       }
     })
-    roomRef
-      .doc(roomId)
-      .collection("Bills")
-      .add({
-        billName: name,
-        totalAmount: amount,
-        users: users,
-      })
-      .then((doc) => {
-        console.log("doc created with id -", doc.id)
-      })
-      .catch((error) => {
-        console.log(error.message)
-      })
+    return roomRef.doc(roomId).collection("Bills").add({
+      billName: name,
+      totalAmount: amount,
+      users: users,
+    })
   }
 
   const addChore = async (area, task, user) => {
@@ -146,6 +146,7 @@ export function FirestoreProvider({ children }) {
   // }
 
   const value = {
+    addUser,
     addRoom,
     addUserSub,
     rooms,
