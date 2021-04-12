@@ -32,6 +32,7 @@ export function FirestoreProvider({ children }) {
       roomName: roonnName,
       userIds: [uid],
       userNames: [userName],
+      pending: [],
     })
   }
   const addUserSub = async (uid, userName, roomId) => {
@@ -75,21 +76,20 @@ export function FirestoreProvider({ children }) {
 
   // ------------ Reads
   const fetchRooms = async (uid) => {
-    if (rooms.length < 1) {
-      await db
-        .collection("rooms")
-        .where("userIds", "array-contains", uid)
-        .get()
-        .then((snapshot) => {
-          snapshot.forEach((doc) => {
-            setRooms((oldArray) => [...oldArray, doc.data()])
-            setRoomsId((oldArray) => [...oldArray, doc.id])
-          })
+    setRooms([])
+    await db
+      .collection("rooms")
+      .where("userIds", "array-contains", uid)
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((doc) => {
+          setRooms((oldArray) => [...oldArray, doc.data()])
+          setRoomsId((oldArray) => [...oldArray, doc.id])
         })
-        .catch((error) => {
-          console.log(error)
-        })
-    }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   const fetchRoom = async (roomId) => {

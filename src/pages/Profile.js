@@ -20,6 +20,7 @@ export default function Profile(props) {
 
   useEffect(() => {
     getRooms()
+    console.log(currentUser.email)
   }, [])
 
   return (
