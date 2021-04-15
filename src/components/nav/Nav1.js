@@ -10,7 +10,7 @@ const Nav1 = () => {
       <Link className=" float-right px-3" to="/login">
         Login{" "}
       </Link>
-      <Logo class="w-20 ml-3" />
+      <Logo className="w-20 ml-3" />
     </nav>
   )
 }

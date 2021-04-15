@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react"
 import BillItems from "./BillItems"
 
 export default function Bill(props) {
-  console.log(props.bill.totalAmount)
-
   return (
     <div>
       <div>
@@ -21,14 +19,14 @@ export default function Bill(props) {
         </thead>
         <tbody>
           {props.bill.users.map((person, index) => (
-            <>
+            <React.Fragment key={index}>
               <BillItems
                 key={index}
                 name={person.name}
                 paid={person.paid}
                 amount={props.bill.totalAmount}
               />
-            </>
+            </React.Fragment>
           ))}
         </tbody>
       </table>

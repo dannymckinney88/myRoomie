@@ -5,7 +5,6 @@ import ChoreContainer from "./ChoreContainer"
 import Dashboard from "./Dashboard"
 
 export default function Tab(props) {
-  console.log(props.bills)
   return (
     <div>
       <Tabs

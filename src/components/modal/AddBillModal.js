@@ -95,6 +95,7 @@ export default function AddBillModal(props) {
                 type="text"
                 id="bill"
                 name="bill"
+                required
               />
             </div>
             <div>
@@ -111,6 +112,7 @@ export default function AddBillModal(props) {
                 type="text"
                 id="amount"
                 name="amount"
+                required
               />
             </div>
 
@@ -123,6 +125,7 @@ export default function AddBillModal(props) {
                     >
                       <label htmlFor="name">{option.name}</label>
                       <input
+                        required
                         onChange={(event) => {
                           let checked = event.target.checked
                           setCheckBoxOptions(

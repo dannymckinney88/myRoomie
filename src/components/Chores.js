@@ -1,26 +1,10 @@
-import React, { useState, useEffect } from "react"
-import ChoreContainer from "./ChoreContainer"
-import { db } from "../firebase"
+import React from "react"
+import Chore from "./Chore"
 
 export default function Chores(props) {
-  // const [chores, setChores] = useState()
+  const allChores = props.chores.map((chores, index) => (
+    <Chore chore={chores} key={index} />
+  ))
 
-  // useEffect(async () => {
-  //   const unsubscribe = db
-  //     .collection("rooms")
-  //     .doc(props.roomId)
-  //     .collection("Chores")
-  //     .onSnapshot((snapshot) => {
-  //       const data = snapshot.docs.map((doc) => doc.data())
-  //       setChores(data)
-  //     })
-
-  //   console.log(chores)
-  //   return () => unsubscribe()
-  // }, [])
-  return (
-    <div>
-      <ChoreContainer roomId={props.roomId} chores={chores} />
-    </div>
-  )
+  return <>{allChores}</>
 }

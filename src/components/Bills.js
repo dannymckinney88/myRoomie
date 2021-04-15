@@ -23,7 +23,7 @@ export default function Bills(props) {
   const allBills = bills.map((bill, index) => <Bill key={index} bill={bill} />)
   console.log(props.bills)
   return (
-    <div className="container" class="container">
+    <div className="container">
       <div>
         <AddBillModal
           roomId={props.roomId}

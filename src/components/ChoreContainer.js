@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import Chore from "./Chore"
+// import Chore from "./Chore"
 import AddChore from "./modal/AddChore"
 import ChoresBox from "../components/ChoresBox"
 import { useFirestore } from "../contexts/FirestoreContext"
@@ -28,7 +28,7 @@ export default function ChoreContainer(props) {
   const [other, setOther] = useState([])
 
   const choresBox = options.map((item, index) => (
-    <>
+    <React.Fragment key={index}>
       {item === "Kitchen" && (
         <ChoresBox area={item} chores={kitchen} key={index} />
       )}
@@ -49,11 +49,19 @@ export default function ChoreContainer(props) {
         <ChoresBox area={item} chores={basement} key={index} />
       )}
       {item === "Other" && <ChoresBox area={item} chores={other} key={index} />}
-    </>
+    </React.Fragment>
   ))
 
   useEffect(() => {
     setChores([])
+    setKitchen([])
+    setLivingRoom([])
+    setFrontyard([])
+    setBackyard([])
+    setAttic([])
+    setBasement([])
+    setOther([])
+    setGarage([])
     const unsubscribe = db
       .collection("rooms")
       .doc(props.roomId)
@@ -62,13 +70,11 @@ export default function ChoreContainer(props) {
         const list = []
         console.log(snapshot.docs)
         snapshot.docs.forEach((doc) => {
-          list.push(doc.data())
+          setChores((arr) => [...arr, { data: doc.data(), id: doc.id }])
         })
-        console.log(list)
-        setChores(list)
+        // console.log(list)
+        // setChores(list)
       })
-
-    console.log(chores)
     return () => unsubscribe()
   }, [])
 
@@ -80,25 +86,26 @@ export default function ChoreContainer(props) {
     setAttic([])
     setBasement([])
     setOther([])
+    setGarage([])
     console.log(chores)
     chores.forEach((item) => {
       console.log(item)
-      if (item.area === "Kitchen") {
+      if (item.data.area === "Kitchen") {
         setKitchen((oldArray) => [...oldArray, item])
-      } else if (item.area === "Living Room") {
+      } else if (item.data.area === "Living Room") {
         setLivingRoom((oldArray) => [...oldArray, item])
         console.log(livingRoom)
-      } else if (item.area === "Frontyard") {
+      } else if (item.data.area === "Frontyard") {
         setFrontyard((oldArray) => [...oldArray, item])
-      } else if (item.area === "Backyard") {
+      } else if (item.data.area === "Backyard") {
         setBackyard((oldArray) => [...oldArray, item])
-      } else if (item.area === "Garage") {
+      } else if (item.data.area === "Garage") {
         setGarage((oldArray) => [...oldArray, item])
-      } else if (item.area === "Attic") {
+      } else if (item.data.area === "Attic") {
         setAttic((oldArray) => [...oldArray, item])
-      } else if (item.area === "Basement") {
+      } else if (item.data.area === "Basement") {
         setBasement((oldArray) => [...oldArray, item])
-      } else if (item.area === "Other") {
+      } else if (item.data.area === "Other") {
         setOther((oldArray) => [...oldArray, item])
       }
     })
@@ -111,7 +118,7 @@ export default function ChoreContainer(props) {
   return (
     <div>
       <AddChore options={options} />
-      <div className="grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-2 col-gap-4 row-gap-10 ">
+      <div className="grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-2 col-gap-4 row-gap-10 container mx-auto">
         {choresBox}
       </div>
     </div>

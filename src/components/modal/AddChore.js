@@ -62,6 +62,7 @@ export default function AddChore(props) {
               type="text"
               id="bill"
               name="bill"
+              required
             />
           </div>
           <div>
@@ -76,7 +77,9 @@ export default function AddChore(props) {
               className="w-full p-2 border border-black-300 rounded mb-3"
               name="chores"
               value={option}
+              required
             >
+              <option value="none">Select option...</option>
               {options}
             </select>
           </div>
