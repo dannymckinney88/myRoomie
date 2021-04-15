@@ -84,6 +84,7 @@ const Signup = (props) => {
                 type="text"
                 name="userName"
                 value={userName}
+                required
               />
             </div>
             <div>
@@ -99,6 +100,7 @@ const Signup = (props) => {
                 type="email"
                 name="email"
                 value={email}
+                required
               />
             </div>
             <div>
@@ -114,6 +116,7 @@ const Signup = (props) => {
                 type="password"
                 name="password"
                 value={password}
+                required
               />
             </div>
             <div>
@@ -129,6 +132,7 @@ const Signup = (props) => {
                 type="password"
                 name="password"
                 value={passwordConfirm}
+                required
               />
             </div>
             <div>

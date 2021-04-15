@@ -21,7 +21,6 @@ const Room = (props) => {
       .get()
       .then((snapshot) => {
         snapshot.forEach((doc) => {
-          console.log(doc.data())
           setBills((oldArray) => [...oldArray, doc.data()])
         })
       })

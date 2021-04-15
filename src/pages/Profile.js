@@ -6,12 +6,10 @@ import CreateRoomModal from "../components/modal/CreateRoomModal"
 import ProfileNav from "../components/nav/ProfileNav"
 
 export default function Profile(props) {
-  const { rooms, roomsId, fetchRooms, addUser, bills } = useFirestore()
+  const { rooms, roomsId, fetchRooms, fetchUser, user } = useFirestore()
 
   // Auth & DB
-  const { currentUser, logout } = useAuth()
-
-  // Auth
+  const { currentUser } = useAuth()
 
   // Firesotre Calls
   const getRooms = async () => {
@@ -20,14 +18,14 @@ export default function Profile(props) {
 
   useEffect(() => {
     getRooms()
-    console.log(currentUser.email)
+    fetchUser()
   }, [])
 
   return (
     <div className=" font-serif bg-green-300 h-screen">
       <ProfileNav />
       <div>
-        <h1>Profile</h1>
+        <h1>Welcome back {user.userName}!</h1>
       </div>
       <div>
         {rooms[0] ? <RoomButtons rooms={rooms} roomIds={roomsId} /> : "HELLO"}
