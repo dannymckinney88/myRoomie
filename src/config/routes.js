@@ -5,6 +5,7 @@ import Room from "../pages/Room"
 import Signup from "../pages/Signup"
 import Login from "../pages/Login"
 import Profile from "../pages/Profile"
+import Notifications from "../pages/Notifications"
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { currentUser } = useAuth()
@@ -29,5 +30,6 @@ export default (props) => (
     <Route path="/login" component={Login} />
     <PrivateRoute path="/profile/:userName?/:email?/" component={Profile} />
     <PrivateRoute path="/room/:id/:name?" component={Room} />
+    <PrivateRoute path="/notifications" component={Notifications} />
   </Switch>
 )
