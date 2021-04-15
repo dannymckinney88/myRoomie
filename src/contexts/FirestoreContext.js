@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react"
 import { db } from "../firebase"
+import { useAuth } from "../contexts/AuthContext"
 
 const FirestoreContext = React.createContext()
 
@@ -14,6 +15,9 @@ export function FirestoreProvider({ children }) {
   const [roomId, setRoomId] = useState()
   const [bills, setBills] = useState([])
   const [chores, setChores] = useState([])
+  const [user, setUser] = useState({})
+
+  const { currentUser } = useAuth()
 
   // Room API
   // -------- Writes
@@ -104,6 +108,18 @@ export function FirestoreProvider({ children }) {
       })
   }
 
+  const fetchUser = async (roomId) => {
+    console.log(currentUser.uid)
+    await db
+      .collection("users")
+      .doc(currentUser.uid)
+      .get()
+      .then((doc) => {
+        console.log(doc.data())
+        setUser(doc.data())
+      })
+  }
+
   // All bills for a room
   const fetchBills = async () => {
     setBills([])
@@ -161,6 +177,8 @@ export function FirestoreProvider({ children }) {
     addChore,
     fetchChores,
     chores,
+    fetchUser,
+    user,
   }
 
   return (
