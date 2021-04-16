@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useAuth } from "../contexts/AuthContext"
 import Background from "../assets/login.jpg"
-import Nav1 from "../components/Nav1"
+import Nav1 from "../components/nav/Nav1"
 import Alert from "../components/Alert"
 
 const Login = (props) => {
@@ -82,7 +82,7 @@ const Login = (props) => {
               </div>
               <div>
                 <button
-                  type="button"
+                  type="submit"
                   onClick={handleSubmit}
                   className="w-full py-2 px4 bg-blue-600 hover:bg-blue-700 rounded-md text-white text-small "
                 >

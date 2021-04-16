@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react"
 import { db } from "../firebase"
+import { useAuth } from "../contexts/AuthContext"
 
 const FirestoreContext = React.createContext()
 
@@ -14,15 +15,28 @@ export function FirestoreProvider({ children }) {
   const [roomId, setRoomId] = useState()
   const [bills, setBills] = useState([])
   const [chores, setChores] = useState([])
+  const [user, setUser] = useState({})
+
+  const { currentUser } = useAuth()
 
   // Room API
   // -------- Writes
+
   const roomRef = db.collection("rooms")
+
+  const addUser = (userName, email, uid) => {
+    return db.collection("users").doc(uid).set({
+      userName: userName,
+      email: email,
+      uid: uid,
+    })
+  }
   const addRoom = async (roonnName, uid, userName) => {
     return roomRef.add({
       roomName: roonnName,
       userIds: [uid],
       userNames: [userName],
+      pending: [],
     })
   }
   const addUserSub = async (uid, userName, roomId) => {
@@ -32,7 +46,7 @@ export function FirestoreProvider({ children }) {
     })
   }
 
-  const addBill = async (name, amount, usersArray) => {
+  const addBill = (name, amount, usersArray) => {
     const users = []
     usersArray.forEach((user) => {
       console.log(user)
@@ -40,20 +54,11 @@ export function FirestoreProvider({ children }) {
         users.push(user)
       }
     })
-    roomRef
-      .doc(roomId)
-      .collection("Bills")
-      .add({
-        billName: name,
-        totalAmount: amount,
-        users: users,
-      })
-      .then((doc) => {
-        console.log("doc created with id -", doc.id)
-      })
-      .catch((error) => {
-        console.log(error.message)
-      })
+    return roomRef.doc(roomId).collection("Bills").add({
+      billName: name,
+      totalAmount: amount,
+      users: users,
+    })
   }
 
   const addChore = async (area, task, user) => {
@@ -75,21 +80,20 @@ export function FirestoreProvider({ children }) {
 
   // ------------ Reads
   const fetchRooms = async (uid) => {
-    if (rooms.length < 1) {
-      await db
-        .collection("rooms")
-        .where("userIds", "array-contains", uid)
-        .get()
-        .then((snapshot) => {
-          snapshot.forEach((doc) => {
-            setRooms((oldArray) => [...oldArray, doc.data()])
-            setRoomsId((oldArray) => [...oldArray, doc.id])
-          })
+    setRooms([])
+    await db
+      .collection("rooms")
+      .where("userIds", "array-contains", uid)
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((doc) => {
+          setRooms((oldArray) => [...oldArray, doc.data()])
+          setRoomsId((oldArray) => [...oldArray, doc.id])
         })
-        .catch((error) => {
-          console.log(error)
-        })
-    }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   const fetchRoom = async (roomId) => {
@@ -101,6 +105,18 @@ export function FirestoreProvider({ children }) {
       .then((doc) => {
         setRoom(doc.data())
         setRoomId(doc.id)
+      })
+  }
+
+  const fetchUser = async (roomId) => {
+    console.log(currentUser.uid)
+    await db
+      .collection("users")
+      .doc(currentUser.uid)
+      .get()
+      .then((doc) => {
+        console.log(doc.data())
+        setUser(doc.data())
       })
   }
 
@@ -146,6 +162,7 @@ export function FirestoreProvider({ children }) {
   // }
 
   const value = {
+    addUser,
     addRoom,
     addUserSub,
     rooms,
@@ -160,6 +177,8 @@ export function FirestoreProvider({ children }) {
     addChore,
     fetchChores,
     chores,
+    fetchUser,
+    user,
   }
 
   return (

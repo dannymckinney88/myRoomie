@@ -1,21 +1,37 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import Bill from "./Bill"
 import AddBillModal from "./modal/AddBillModal"
 import { useFirestore } from "../contexts/FirestoreContext"
+import { db } from "../firebase"
 
 export default function Bills(props) {
-  const { bills } = useFirestore()
+  const [bills, setBills] = useState([])
 
-  const allBills = props.bills.map((bill, index) => (
-    <Bill key={index} bill={bill} />
-  ))
+  useEffect(() => {
+    const unsubscribe = db
+      .collection("rooms")
+      .doc(props.roomId)
+      .collection("Bills")
+      .onSnapshot((snapshot) => {
+        const data = snapshot.docs.map((doc) => doc.data())
+        setBills(data)
+      })
+
+    return () => unsubscribe()
+  }, [])
+
+  const allBills = bills.map((bill, index) => <Bill key={index} bill={bill} />)
   console.log(props.bills)
   return (
-    <div className="container" class="container">
+    <div className="container">
       <div>
-        <AddBillModal />
+        <AddBillModal
+          roomId={props.roomId}
+          setBills={setBills}
+          roomName={props.roomName}
+        />
       </div>
-      {allBills}
+      {allBills.length >= 1 && allBills}
     </div>
   )
 }

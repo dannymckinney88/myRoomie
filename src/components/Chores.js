@@ -1,10 +1,10 @@
-import React from "react";
-import ChoreContainer from "./ChoreContainer";
+import React from "react"
+import Chore from "./Chore"
 
-export default function Chores() {
-  return (
-    <div>
-      <ChoreContainer />
-    </div>
-  );
+export default function Chores(props) {
+  const allChores = props.chores.map((chores, index) => (
+    <Chore chore={chores} key={index} />
+  ))
+
+  return <>{allChores}</>
 }

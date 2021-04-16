@@ -3,28 +3,13 @@ import { useFirestore } from "../contexts/FirestoreContext"
 import { useAuth } from "../contexts/AuthContext"
 import RoomButtons from "../components/RoomButtons"
 import CreateRoomModal from "../components/modal/CreateRoomModal"
+import ProfileNav from "../components/nav/ProfileNav"
 
 export default function Profile(props) {
-  const { rooms, roomsId, fetchRooms, fetchBills, bills } = useFirestore()
-  const [error, setError] = useState("")
-
-  const [currentRooms] = useState(rooms)
-  // const [roomsId, setRoomsId] = useState([])
+  const { rooms, roomsId, fetchRooms, fetchUser, user } = useFirestore()
 
   // Auth & DB
-  const { currentUser, logout } = useAuth()
-
-  // Auth
-  async function handleLogout() {
-    setError("")
-
-    try {
-      await logout()
-      props.history.push("/login")
-    } catch {
-      setError("Failed to log out")
-    }
-  }
+  const { currentUser } = useAuth()
 
   // Firesotre Calls
   const getRooms = async () => {
@@ -33,19 +18,19 @@ export default function Profile(props) {
 
   useEffect(() => {
     getRooms()
+    fetchUser()
   }, [])
 
   return (
-    <div>
-      <h1>Profile</h1>
+    <div className=" font-serif bg-green-300 h-screen">
+      <ProfileNav />
+      <div>
+        <h1>Welcome back {user.userName}!</h1>
+      </div>
       <div>
         {rooms[0] ? <RoomButtons rooms={rooms} roomIds={roomsId} /> : "HELLO"}
+        <CreateRoomModal />
       </div>
-      <CreateRoomModal />
-      <button className="bg-black text-white" onClick={handleLogout}>
-        Sign Out
-      </button>
-      {/* <button onClick={handleAddRoom}>Add Room</button> */}
     </div>
   )
 }

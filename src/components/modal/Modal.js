@@ -40,11 +40,11 @@ export function Modal({ children, fade = false, defaultOpened = false }, ref) {
 
   return createPortal(
     isOpen ? (
-      <div className={`modal ${fade ? "modal-fade" : ""}`}>
+      <div close={close} className={`modal ${fade ? "modal-fade" : ""}`}>
         <div className="modal-overlay" onClick={close} />
         <span
           role="button"
-          className="modal-close"
+          className="modal-close "
           aria-label="close"
           onClick={close}
         >
